@@ -1,0 +1,29 @@
+# Dependencies and generated output
+node_modules/
+dist/
+build/
+coverage/
+.cache/
+artifacts/
+playwright-report/
+test-results/
+
+# Local configuration, credentials, and agent state
+.env
+.env.*
+!.env.example
+.agents/
+.aws/
+.codex/
+.idea/
+.vscode/
+
+# Operating system and temporary files
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*~
+__pycache__/
+*.pyc

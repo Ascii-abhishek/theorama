@@ -1,0 +1,622 @@
+[
+  {
+    "id": "butterfly-effect",
+    "title": "The Butterfly Effect",
+    "category": "Physics",
+    "kind": "Effect",
+    "tags": [
+      "Physics",
+      "Chaos",
+      "Complex systems"
+    ],
+    "description": "Tiny changes at the beginning can lead to wildly different outcomes.",
+    "readTime": "4 min",
+    "year": "1963",
+    "attribution": "Edward Lorenz",
+    "color": "peach",
+    "overview": {
+      "lead": "A tiny difference now can become a very different world later.",
+      "paragraphs": [
+        "Some systems amplify small differences as they evolve. Two weather simulations can begin almost identically, follow the same rules, and eventually disagree dramatically.",
+        "This is sensitive dependence on initial conditions. The rules can be deterministic while long-term prediction remains difficult, because measurements are never perfectly precise."
+      ],
+      "takeaway": "Knowing the rules does not always mean knowing what happens next."
+    },
+    "mental": {
+      "analogyTitle": "Two marbles, one uneven hill",
+      "analogy": "Release two marbles almost side by side on a bumpy slope. A small difference at the first bump can send them into entirely different valleys. This is an analogy for diverging trajectories.",
+      "steps": [
+        "Start with nearly identical conditions.",
+        "Let repeated interactions amplify the difference.",
+        "Watch the paths separate over time."
+      ],
+      "caution": "Small changes do not always have large consequences; the system and conditions matter."
+    },
+    "details": {
+      "paragraphs": [
+        "Lorenz's 1963 convection model used three nonlinear differential equations and became a landmark example of deterministic chaos.",
+        "Its bounded, nonperiodic trajectories reveal why small uncertainty can limit prediction. The butterfly is a metaphor, not evidence that a particular wingbeat caused a particular storm."
+      ],
+      "bullets": [
+        "Deterministic does not mean easily predictable.",
+        "Sensitivity depends on the system's dynamics.",
+        "An attractor describes the geometry of its evolving states."
+      ],
+      "sources": [
+        {
+          "label": "Lorenz · Deterministic Nonperiodic Flow (1963)",
+          "url": "https://cdanfort.w3.uvm.edu/research/lorenz-1963.pdf"
+        }
+      ]
+    }
+  },
+  {
+    "id": "parkinsons-law",
+    "title": "Parkinson's Law",
+    "category": "Everyday life",
+    "kind": "Law",
+    "tags": [
+      "Everyday life",
+      "Productivity",
+      "Time"
+    ],
+    "description": "The more time a task gets, the more room it finds to grow.",
+    "readTime": "3 min",
+    "year": "1955",
+    "attribution": "C. Northcote Parkinson",
+    "color": "yellow",
+    "overview": {
+      "lead": "An open-ended deadline can turn a small task into a big project.",
+      "paragraphs": [
+        "Give yourself a whole afternoon to write a short message and you may spend it polishing every sentence. A smaller window can encourage a clearer definition of done.",
+        "Parkinson introduced the idea in a humorous essay about bureaucracy. It is a useful observation about behavior, rather than a measured law of nature."
+      ],
+      "takeaway": "Give a task a clear boundary and a realistic finish line."
+    },
+    "mental": {
+      "analogyTitle": "A task behaves like a balloon",
+      "analogy": "Imagine the task expanding into the container you give it. A bigger container invites extra revisions and detours. A sensible boundary helps you notice what is essential.",
+      "steps": [
+        "Define the useful outcome.",
+        "Choose a realistic timebox.",
+        "Stop and review when it ends."
+      ],
+      "caution": "Impossible deadlines can damage quality; complex work still needs enough time."
+    },
+    "details": {
+      "paragraphs": [
+        "The original essay appeared in The Economist on 19 November 1955 and examined the growth of administrative work and staff.",
+        "Modern timeboxing is one practical interpretation. Whether it improves a particular task should be checked against the result, not assumed from the slogan."
+      ],
+      "bullets": [
+        "An aphorism, despite the word law.",
+        "Scope can expand alongside the deadline.",
+        "Use boundaries as experiments, not guarantees."
+      ],
+      "sources": [
+        {
+          "label": "Parkinson · The original 1955 essay",
+          "url": "https://scrummaster.dk/lib/AgileLeanLibrary/_Misc/Parkinson%27s%20Law%20_%20The%20Economist.pdf"
+        }
+      ]
+    }
+  },
+  {
+    "id": "occams-razor",
+    "title": "Occam's Razor",
+    "category": "Everyday life",
+    "kind": "Principle",
+    "tags": [
+      "Everyday life",
+      "Reasoning",
+      "Simplicity"
+    ],
+    "description": "When explanations fit equally well, begin with fewer assumptions.",
+    "readTime": "3 min",
+    "year": "14th century",
+    "attribution": "Associated with William of Ockham",
+    "color": "sage",
+    "overview": {
+      "lead": "Avoid adding extra assumptions when the evidence does not need them.",
+      "paragraphs": [
+        "If two explanations account for the same observations, the one requiring fewer unsupported assumptions is often a useful starting point.",
+        "This principle helps organize inquiry. It does not prove that the neatest story is true or let us ignore inconvenient evidence."
+      ],
+      "takeaway": "Simplify the explanation while keeping all the evidence."
+    },
+    "mental": {
+      "analogyTitle": "Pack only what the trip needs",
+      "analogy": "Treat assumptions like things in a backpack. Each item should earn its place. Remove unnecessary weight, but keep the equipment needed for the actual journey.",
+      "steps": [
+        "List the observations to explain.",
+        "Compare the assumptions each account needs.",
+        "Test the strongest economical account."
+      ],
+      "caution": "Simple is not the same as familiar, easy to explain, or correct."
+    },
+    "details": {
+      "paragraphs": [
+        "Versions of parsimony predate Ockham, and modern formulations differ from his historical uses. Simplicity can mean fewer entities, fewer principles, or a less elaborate structure.",
+        "These meanings sometimes conflict. Applying the razor requires specifying what is being simplified and whether explanatory power is being preserved."
+      ],
+      "bullets": [
+        "Other things being equal is essential.",
+        "Evidence outranks elegance.",
+        "A guide to theory choice, not a proof."
+      ],
+      "sources": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy · Simplicity",
+          "url": "https://plato.stanford.edu/entries/simplicity/"
+        }
+      ]
+    }
+  },
+  {
+    "id": "entropy",
+    "title": "Entropy",
+    "category": "Physics",
+    "kind": "Principle",
+    "tags": [
+      "Physics",
+      "Thermodynamics",
+      "Energy"
+    ],
+    "description": "Why energy spreads out, and why some processes have a direction.",
+    "readTime": "5 min",
+    "year": "1865",
+    "attribution": "Rudolf Clausius",
+    "color": "lavender",
+    "overview": {
+      "lead": "Energy naturally spreads in ways that make some changes hard to reverse.",
+      "paragraphs": [
+        "A hot mug cools in a room. Reversing that transfer requires more than simply waiting. Entropy helps describe the direction of such physical processes.",
+        "For an isolated system, total entropy does not decrease. A local region can become more organized while its surroundings compensate."
+      ],
+      "takeaway": "Look at the whole system, including its surroundings."
+    },
+    "mental": {
+      "analogyTitle": "A drop of ink in water",
+      "analogy": "Ink spreads through a glass because there are vastly more microscopic ways for it to be dispersed than concentrated in one small spot. This illustrates a statistical idea behind entropy.",
+      "steps": [
+        "Begin with a concentrated state.",
+        "Let microscopic interactions redistribute it.",
+        "Compare how many arrangements fit each state."
+      ],
+      "caution": "Messiness is only a rough metaphor; thermodynamic entropy is a precise quantity."
+    },
+    "details": {
+      "paragraphs": [
+        "For a reversible heat transfer, the entropy change satisfies dS = δQrev/T, with temperature measured on an absolute scale.",
+        "The second law constrains total entropy change. It allows refrigerators and living organisms because they exchange energy and entropy with their environments."
+      ],
+      "bullets": [
+        "Entropy has units of joules per kelvin.",
+        "Isolated and open systems behave differently.",
+        "Energy conservation and entropy increase are distinct ideas."
+      ],
+      "sources": [
+        {
+          "label": "NASA Glenn · Second Law and Entropy",
+          "url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/second-law-entropy/"
+        }
+      ]
+    }
+  },
+  {
+    "id": "game-theory",
+    "title": "Game Theory",
+    "category": "Computer science",
+    "kind": "Theory",
+    "tags": [
+      "Computer science",
+      "Strategy",
+      "Economics"
+    ],
+    "description": "Your best move depends on what everyone else decides to do.",
+    "readTime": "5 min",
+    "year": "1944 / 1950",
+    "attribution": "von Neumann, Morgenstern, Nash and others",
+    "color": "blue",
+    "overview": {
+      "lead": "Some decisions make sense only when you consider other people's decisions.",
+      "paragraphs": [
+        "Game theory models choices between interacting decision-makers. Players have available actions and outcomes they value differently.",
+        "It studies competition and cooperation, from auctions to shared resources. A model is useful when its assumptions capture the incentives that matter."
+      ],
+      "takeaway": "Ask what each participant wants and how they can respond."
+    },
+    "mental": {
+      "analogyTitle": "Two cafés choose their prices",
+      "analogy": "Each café's result depends on its own price and its rival's price. A tempting change can provoke a response, so a decision cannot be evaluated in isolation.",
+      "steps": [
+        "Identify the players and choices.",
+        "Describe the outcomes each values.",
+        "Consider their best responses to one another."
+      ],
+      "caution": "Real people may lack information, act inconsistently, or value things the model omits."
+    },
+    "details": {
+      "paragraphs": [
+        "A Nash equilibrium is a set of strategies where no player can improve their own payoff by changing alone while the others keep theirs fixed.",
+        "Nash established equilibrium existence for finite games when mixed strategies are permitted. An equilibrium need not be fair, unique, efficient, or easy to reach."
+      ],
+      "bullets": [
+        "Mixed strategies randomize over actions.",
+        "Non-zero-sum games can allow mutual gains.",
+        "An equilibrium is not necessarily the best collective outcome."
+      ],
+      "sources": [
+        {
+          "label": "Nash · Non-Cooperative Games (1951)",
+          "url": "https://irving.vassar.edu/faculty/gj/FTU/io/literature/Nash51.pdf"
+        }
+      ]
+    }
+  },
+  {
+    "id": "natural-selection",
+    "title": "Natural Selection",
+    "category": "Biology",
+    "kind": "Theory",
+    "tags": [
+      "Biology",
+      "Evolution",
+      "Adaptation"
+    ],
+    "description": "Inherited differences can shape which traits spread over generations.",
+    "readTime": "4 min",
+    "year": "1858 / 1859",
+    "attribution": "Charles Darwin and Alfred Russel Wallace",
+    "color": "sage",
+    "overview": {
+      "lead": "Traits that help organisms leave more offspring can become more common.",
+      "paragraphs": [
+        "Individuals vary. When some differences are inherited and affect reproductive success, populations can change across generations.",
+        "The environment matters: a useful trait in one setting can be costly in another. Selection has no plan or final destination."
+      ],
+      "takeaway": "Adaptation emerges through differences in reproduction over time."
+    },
+    "mental": {
+      "analogyTitle": "Beaks meet a changing menu",
+      "analogy": "Imagine birds with inherited differences in beak shape. If harder seeds become the main food, birds better able to eat them may leave more offspring, shifting the population over generations.",
+      "steps": [
+        "Notice inherited variation.",
+        "Connect traits to reproductive outcomes.",
+        "Track their frequency across generations."
+      ],
+      "caution": "Individuals do not evolve a needed trait on demand; populations change across generations."
+    },
+    "details": {
+      "paragraphs": [
+        "Natural selection is a mechanism within evolutionary theory. Darwin and Wallace independently developed the idea, which was jointly presented in 1858.",
+        "Selection is not the only cause of evolutionary change. Mutation, genetic drift and gene flow also matter, and adaptation need not produce perfection."
+      ],
+      "bullets": [
+        "Variation must have a heritable component.",
+        "Fitness concerns reproductive success in context.",
+        "Selection has no foresight."
+      ],
+      "sources": [
+        {
+          "label": "Darwin Online · On the Origin of Species",
+          "url": "https://darwin-online.org.uk/content/contentblock?basepage=1&hitpage=439&itemID=F401&viewtype=text"
+        }
+      ]
+    }
+  },
+  {
+    "id": "fermi-paradox",
+    "title": "The Fermi Paradox",
+    "category": "Space",
+    "kind": "Paradox",
+    "tags": [
+      "Space",
+      "Life",
+      "Uncertainty"
+    ],
+    "description": "A vast universe. So many possibilities. Where is everybody?",
+    "readTime": "4 min",
+    "year": "1950",
+    "attribution": "Associated with Enrico Fermi",
+    "color": "blue",
+    "overview": {
+      "lead": "If technological civilizations are common, why have we found no confirmed evidence?",
+      "paragraphs": [
+        "The galaxy contains immense numbers of stars and has existed for billions of years. Under some assumptions, civilizations could have spread far beyond their home systems.",
+        "The tension lies between those expectations and our observations. It invites questions about the assumptions as much as about the silence."
+      ],
+      "takeaway": "A puzzling absence can reveal what we have assumed."
+    },
+    "mental": {
+      "analogyTitle": "An enormous, quiet neighborhood",
+      "analogy": "Imagine a city with countless homes but no familiar lights in the windows. Are the homes empty, are you looking at the wrong time, or do their residents use signals you do not recognize?",
+      "steps": [
+        "State what you expect to observe.",
+        "Inspect what has actually been searched.",
+        "Revisit assumptions behind the expectation."
+      ],
+      "caution": "No confirmed detection is not proof that extraterrestrial life is absent."
+    },
+    "details": {
+      "paragraphs": [
+        "Fermi's famous question is associated with a 1950 conversation. Later arguments developed it into the modern discussion about galactic settlement and detectability.",
+        "Possible explanations include rare life, short-lived technology, limited expansion, and incomplete searches. These remain hypotheses rather than an established solution."
+      ],
+      "bullets": [
+        "Life and detectable technology are different questions.",
+        "Searches cover limited signals, places and times.",
+        "The conclusion depends on uncertain probabilities."
+      ],
+      "sources": [
+        {
+          "label": "SETI Institute · The Fermi Paradox",
+          "url": "https://www.seti.org/research/seti-101/fermi-paradox"
+        }
+      ]
+    }
+  },
+  {
+    "id": "pareto-principle",
+    "title": "The Pareto Principle",
+    "category": "Everyday life",
+    "kind": "Principle",
+    "tags": [
+      "Everyday life",
+      "Productivity",
+      "Systems"
+    ],
+    "description": "A small share of causes can account for a large share of results.",
+    "readTime": "3 min",
+    "year": "1890s / 20th century",
+    "attribution": "Vilfredo Pareto; generalized by Joseph Juran",
+    "color": "peach",
+    "overview": {
+      "lead": "Results are often distributed unevenly across their causes.",
+      "paragraphs": [
+        "A handful of issues might generate most support requests. A few tasks might create much of a project's value. Looking for concentration can help set priorities.",
+        "The familiar 80/20 ratio is a rule of thumb, not a universal measurement. Check the distribution before deciding what deserves attention."
+      ],
+      "takeaway": "Measure the biggest contributors before spreading effort evenly."
+    },
+    "mental": {
+      "analogyTitle": "Find the leaky pipes",
+      "analogy": "If a few leaks waste most of a building's water, repairing every pipe equally would miss an opportunity. Start by measuring the leaks and rank them by impact.",
+      "steps": [
+        "Choose a meaningful outcome to measure.",
+        "Rank its contributors by size.",
+        "Focus attention, then measure again."
+      ],
+      "caution": "A small current contribution does not mean something is unimportant or safe to ignore."
+    },
+    "details": {
+      "paragraphs": [
+        "Pareto studied unequal economic distributions. Joseph Juran later applied the idea of a vital few contributors to quality improvement.",
+        "A Pareto chart orders categories by their measured contribution. The pattern may be 70/30, 90/10, or something else entirely."
+      ],
+      "bullets": [
+        "A prioritization heuristic, not a theorem.",
+        "Use observed data rather than a preset ratio.",
+        "Account for risks and long-term value too."
+      ],
+      "sources": [
+        {
+          "label": "Juran Institute · History of the Pareto Principle",
+          "url": "https://www.juran.com/about-us/dr-jurans-history/"
+        }
+      ]
+    }
+  },
+  {
+    "id": "dunning-kruger",
+    "title": "The Dunning–Kruger Effect",
+    "category": "Psychology",
+    "kind": "Effect",
+    "tags": [
+      "Psychology",
+      "Bias",
+      "Learning"
+    ],
+    "description": "Judging your own skill can require the very skill you are still learning.",
+    "readTime": "4 min",
+    "year": "1999",
+    "attribution": "Justin Kruger and David Dunning",
+    "color": "pink",
+    "overview": {
+      "lead": "Confidence and competence do not always move together.",
+      "paragraphs": [
+        "In the original studies, lower-performing participants substantially overestimated their standing on particular tasks. Recognizing mistakes can itself require expertise.",
+        "The useful response is curiosity about our own blind spots, supported by feedback. The label is much less useful as an insult aimed at somebody else."
+      ],
+      "takeaway": "Calibrate confidence against evidence and useful feedback."
+    },
+    "mental": {
+      "analogyTitle": "Learning to hear a wrong note",
+      "analogy": "A new musician may struggle to notice the same errors a trained ear catches immediately. Practice can improve both performance and the ability to evaluate it.",
+      "steps": [
+        "Make a prediction about your performance.",
+        "Compare it with an independent measure.",
+        "Use the gap to guide practice."
+      ],
+      "caution": "The popular confidence mountain is not a universal learning curve established by the original study."
+    },
+    "details": {
+      "paragraphs": [
+        "The 1999 paper studied self-assessment in humor, grammar and logical reasoning. Its proposed explanation emphasized metacognitive skill.",
+        "Researchers debate how much of the observed pattern reflects metacognition, measurement and statistical effects. It does not classify a person's overall intelligence."
+      ],
+      "bullets": [
+        "The findings concern performance within a domain.",
+        "Self-assessment can be poorly calibrated at any level.",
+        "Seek specific feedback rather than identity labels."
+      ],
+      "sources": [
+        {
+          "label": "Kruger & Dunning · Original study (1999)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/10626367/"
+        },
+        {
+          "label": "Later research · An empirical critique",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9727674/"
+        }
+      ]
+    }
+  },
+  {
+    "id": "relativity",
+    "title": "Relativity",
+    "category": "Physics",
+    "kind": "Theory",
+    "tags": [
+      "Physics",
+      "Space",
+      "Time"
+    ],
+    "description": "Space and time depend on motion and gravity in measurable ways.",
+    "readTime": "6 min",
+    "year": "1905 / 1915",
+    "attribution": "Albert Einstein",
+    "color": "lavender",
+    "overview": {
+      "lead": "There is no single universal clock shared by everyone everywhere.",
+      "paragraphs": [
+        "Observers moving differently can disagree about elapsed time and distance while agreeing on the laws of physics. These differences are tiny at familiar speeds.",
+        "Gravity also affects how clocks compare. These are physical effects that precision clocks can measure, not tricks of perception."
+      ],
+      "takeaway": "Time is part of the physical world, shaped by motion and gravity."
+    },
+    "mental": {
+      "analogyTitle": "Two clocks take different journeys",
+      "analogy": "Synchronize two excellent clocks, send one along a different path, and reunite them. Their readings can differ because their motions and gravitational environments differed.",
+      "steps": [
+        "Start with synchronized clocks.",
+        "Give them different physical journeys.",
+        "Compare elapsed time when they reunite."
+      ],
+      "caution": "Relativity does not mean every claim is equally true; it gives precise relationships between measurements."
+    },
+    "details": {
+      "paragraphs": [
+        "Special relativity describes spacetime without gravitational curvature and includes velocity-dependent time dilation. General relativity describes gravity through spacetime geometry.",
+        "Optical atomic clocks have measured relativistic differences even across small changes in speed or height. A clock deeper in Earth's gravitational potential ticks more slowly relative to a higher one."
+      ],
+      "bullets": [
+        "Special and general relativity address related but distinct settings.",
+        "Clock comparisons depend on specified paths and frames.",
+        "The predictions can be tested quantitatively."
+      ],
+      "sources": [
+        {
+          "label": "NIST · Relativity and Optical Clocks",
+          "url": "https://www.nist.gov/publications/relativity-and-optical-clocks"
+        }
+      ]
+    }
+  },
+  {
+    "id": "godel-incompleteness",
+    "title": "Gödel's Incompleteness",
+    "category": "Mathematics",
+    "kind": "Theorem",
+    "tags": [
+      "Mathematics",
+      "Computer science",
+      "Logic"
+    ],
+    "description": "Powerful formal rulebooks have limits to what they can prove.",
+    "readTime": "6 min",
+    "year": "1931",
+    "attribution": "Kurt Gödel",
+    "color": "yellow",
+    "overview": {
+      "lead": "A sufficiently strong, consistent formal system cannot settle every statement it can express.",
+      "paragraphs": [
+        "A formal system starts with axioms and precise rules for deriving theorems. Gödel showed a deep limitation for effectively specified systems capable of expressing enough arithmetic.",
+        "Such a system contains statements it cannot prove or refute. Adding axioms can resolve particular cases, but the limitation returns for the expanded system."
+      ],
+      "takeaway": "Truth and provability inside one rulebook are different notions."
+    },
+    "mental": {
+      "analogyTitle": "A rulebook with an inside and an outside",
+      "analogy": "Imagine a proof-checking machine following fixed rules. Mathematics can ask questions about the machine itself. Gödel encoded that kind of self-reference using arithmetic.",
+      "steps": [
+        "Specify axioms and mechanical proof rules.",
+        "Encode statements about proofs as numbers.",
+        "Construct a statement the system cannot settle."
+      ],
+      "caution": "The theorem has technical conditions; it does not imply that nothing is knowable or that every system is incomplete."
+    },
+    "details": {
+      "paragraphs": [
+        "The modern first theorem applies to consistent, effectively axiomatized theories containing enough elementary arithmetic; Rosser strengthened Gödel's original assumptions.",
+        "Under the usual conditions, the second theorem prevents such a consistent theory from proving its own formalized consistency. Both conclusions concern proof within a specified system."
+      ],
+      "bullets": [
+        "Consistency, effective axioms and expressive strength matter.",
+        "Unprovable always means relative to a system.",
+        "Self-reference is encoded with arithmetic, not a vague paradox."
+      ],
+      "sources": [
+        {
+          "label": "Gödel · Original paper (English translation)",
+          "url": "https://www.uhu.es/francisco.moreno/gii_mac/docs/Godel_paper_1931.pdf"
+        },
+        {
+          "label": "Stanford Encyclopedia · The precise conditions",
+          "url": "https://plato.stanford.edu/entries/goedel-incompleteness/"
+        }
+      ]
+    }
+  },
+  {
+    "id": "pythagorean-theorem",
+    "title": "Pythagorean Theorem",
+    "category": "Mathematics",
+    "kind": "Theorem",
+    "tags": [
+      "Mathematics",
+      "Geometry",
+      "Distance"
+    ],
+    "description": "A right triangle connects three lengths through one elegant equation.",
+    "readTime": "3 min",
+    "year": "Ancient",
+    "attribution": "Named after Pythagoras; known across ancient cultures",
+    "color": "sage",
+    "overview": {
+      "lead": "In a flat right triangle, the squared shorter sides add up to the squared longest side.",
+      "paragraphs": [
+        "If the legs have lengths a and b, and the hypotenuse has length c, then a² + b² = c². A triangle with legs 3 and 4 therefore has hypotenuse 5.",
+        "The relationship lets us turn two perpendicular distances into a direct distance. It underpins calculations in geometry, graphics and navigation."
+      ],
+      "takeaway": "A right angle turns two component lengths into one direct distance."
+    },
+    "mental": {
+      "analogyTitle": "Build a square on every side",
+      "analogy": "Draw a square outward from each side of a right triangle. The areas of the two smaller squares together equal the area of the largest square.",
+      "steps": [
+        "Check that the triangle has a right angle.",
+        "Square the lengths of its two legs.",
+        "Add them and take the square root."
+      ],
+      "caution": "The familiar formula assumes Euclidean geometry and a right triangle."
+    },
+    "details": {
+      "paragraphs": [
+        "Euclid's Elements, Book I, Proposition 47 gives a geometric proof using areas. The relationship was known before Euclid and before its traditional namesake.",
+        "The converse also holds in Euclidean geometry: if the squared longest side equals the sum for the other two sides, the triangle is right-angled."
+      ],
+      "bullets": [
+        "The hypotenuse lies opposite the right angle.",
+        "All lengths must use the same units.",
+        "On curved spaces, distance relationships can differ."
+      ],
+      "sources": [
+        {
+          "label": "Euclid · Elements, Book I, Proposition 47",
+          "url": "https://web.calstatela.edu/faculty/hmendel/Ancient%20Mathematics/Euclid/Euclid%20I/Euclid%201.47/Euclid.1.47.html"
+        }
+      ]
+    }
+  }
+]
