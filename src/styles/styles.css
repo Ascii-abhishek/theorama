@@ -1,4 +1,11 @@
 @font-face {
+  font-family: "Kalam";
+  src: url("../../assets/fonts/kalam-regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: "Instrument Serif";
   src: url("../../assets/fonts/instrument-serif.ttf") format("truetype");
   font-weight: 400;
@@ -66,6 +73,7 @@
   --sans: "DM Sans", Arial, sans-serif;
   --serif: "Instrument Serif", Georgia, serif;
   --mono: "DM Mono", monospace;
+  --handwriting: "Kalam", "Segoe Print", cursive;
   --body-font: var(--sans);
   --display-font: var(--serif);
   --label-font: var(--mono);
@@ -76,6 +84,10 @@ html[data-font="serif"] {
   --sans: Georgia, "Times New Roman", serif;
   --serif: Georgia, "Times New Roman", serif;
   --mono: Georgia, "Times New Roman", serif;
+}
+html[data-font="handwritten"] {
+  --sans: var(--handwriting);
+  --serif: var(--handwriting);
 }
 * {
   box-sizing: border-box;
@@ -458,10 +470,6 @@ button svg {
     transform 0.2s,
     box-shadow 0.2s;
 }
-.idea-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px #292c260c;
-}
 .idea-card-open {
   display: flex;
   align-items: center;
@@ -611,8 +619,8 @@ button svg {
   animation: slide-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .drawer-topbar {
-  height: 74px;
-  padding: 0 30px;
+  height: 64px;
+  padding: 0 26px;
   flex-shrink: 0;
   border-bottom: 1px solid var(--line);
   display: flex;
@@ -624,10 +632,9 @@ button svg {
   letter-spacing: 1.8px;
   margin: 0;
 }
-.drawer-topbar .eyebrow {
-  color: var(--muted);
-  font-size: 10px;
-}
+#drawer-label { color: var(--ink); font: 500 19px var(--sans); }
+#drawer-tabs { align-self: stretch; min-width: 0; }
+.drawer-topbar .close-button { flex-shrink: 0; }
 .close-button {
   width: 33px;
   height: 33px;
@@ -763,29 +770,10 @@ button svg {
   background: var(--soft);
   border-color: var(--line);
 }
-.serif-sample {
-  font-family: Georgia, serif !important;
-}
-.size-control {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-.size-control input {
-  flex: 1;
-  accent-color: var(--accent);
-  width: 100%;
-}
-.size-control span:first-child {
-  font-size: 14px;
-}
-.size-control span:last-child {
-  font-size: 23px;
-}
 .reading-preview {
   padding: 20px 22px;
   background: var(--soft);
-  border: 1px dashed var(--line);
+  border: 1px solid var(--line);
   border-radius: 7px;
   margin-top: 32px;
 }
@@ -802,45 +790,6 @@ button svg {
   font: 11px/1.8 var(--mono);
   color: var(--muted);
   margin-top: 20px;
-}
-.toggle-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid var(--line);
-  padding-top: 22px;
-  gap: 15px;
-}
-.toggle-row h3 {
-  margin-bottom: 6px;
-}
-.toggle-row p {
-  font-size: 12px;
-  color: var(--muted);
-  margin: 0;
-}
-.toggle {
-  height: 24px;
-  width: 43px;
-  min-width: 43px;
-  border-radius: 20px;
-  background: var(--line);
-  padding: 3px;
-  transition: background 0.2s;
-}
-.toggle span {
-  display: block;
-  height: 18px;
-  width: 18px;
-  border-radius: 50%;
-  background: var(--paper);
-  transition: transform 0.2s;
-}
-.toggle[aria-checked="true"] {
-  background: var(--ink);
-}
-.toggle[aria-checked="true"] span {
-  transform: translateX(19px);
 }
 .feedback-form label {
   display: block;
@@ -1296,4 +1245,95 @@ html[data-theme="rose"] {
     transition: none !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Raised stock-card surfaces share the same ink and muted paper palette. */
+.idea-card,
+.featured-card {
+  --tile-edge: color-mix(in srgb, var(--card-color) 76%, #1f271d);
+  border-color: color-mix(in srgb, var(--ink) 38%, var(--card-color));
+  box-shadow:
+    inset 0 1px 0 #ffffff70,
+    inset 0 -2px 0 #20271d0d,
+    0 4px 0 var(--tile-edge),
+    0 5px 0 color-mix(in srgb, var(--ink) 42%, var(--tile-edge)),
+    0 9px 13px #20271d0b;
+  transition:
+    transform 180ms ease-out,
+    box-shadow 180ms ease-out,
+    border-color 180ms ease-out;
+}
+.idea-card-open {
+  border-radius: inherit;
+}
+.idea-card:focus-within,
+.featured-card:focus-within {
+  border-color: var(--ink);
+}
+.featured-card:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html:not(.motion-off) .idea-card:hover,
+  html:not(.motion-off) .featured-card:hover {
+    transform: perspective(1100px) translateY(-3px) rotateX(1.25deg)
+      rotateY(-0.45deg);
+    box-shadow:
+      inset 0 1px 0 #ffffff80,
+      inset 0 -2px 0 #20271d0d,
+      0 6px 0 var(--tile-edge),
+      0 7px 0 color-mix(in srgb, var(--ink) 42%, var(--tile-edge)),
+      0 13px 18px #20271d15;
+  }
+}
+.idea-card:has(.idea-card-open:active),
+.featured-card:has(.feature-open:active) {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 #ffffff50,
+    0 2px 0 var(--tile-edge),
+    0 3px 0 color-mix(in srgb, var(--ink) 42%, var(--tile-edge));
+}
+@media (max-width: 760px) {
+  .idea-card,
+  .featured-card {
+    box-shadow:
+      inset 0 1px 0 #ffffff60,
+      0 3px 0 var(--tile-edge),
+      0 4px 0 color-mix(in srgb, var(--ink) 42%, var(--tile-edge));
+  }
+  .read-status {
+    width: 38px;
+    height: 38px;
+    right: 4px;
+    top: 4px;
+  }
+}
+
+.motion-off .idea-card:has(.idea-card-open:active),
+.motion-off .featured-card:has(.feature-open:active) {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .idea-card:has(.idea-card-open:active),
+  .featured-card:has(.feature-open:active) {
+    transform: none;
+  }
+}
+
+.utility-tabs { display: flex; align-items: stretch; gap: 22px; height: 100%; }
+.utility-tabs [role="tab"] { padding: 0; border-bottom: 2px solid transparent; color: var(--muted); font: 13px var(--sans); }
+.utility-tabs [aria-selected="true"] { border-bottom-color: var(--ink); color: var(--ink); }
+.font-sample-sans { font-family: "DM Sans", Arial, sans-serif; }
+.font-sample-serif { font-family: Georgia, serif; }
+.font-sample-handwritten { font-family: var(--handwriting); }
+.segmented-control .font-sample-handwritten { font-size: 15px; }
+.appearance-content .utility-intro { margin-bottom: 26px; }
+.appearance-content .setting-group { margin: 26px 0; }
+.appearance-content .reading-preview { margin-top: 28px; }
+@media (max-width: 580px) {
+  .drawer-topbar { height: 60px; padding: 0 20px; }
+  .utility-tabs { gap: 18px; }
+  .utility-tabs [role="tab"] { font-size: 12px; }
 }

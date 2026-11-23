@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Theorama pagination tests</title>
+    <link rel="stylesheet" href="../src/styles/styles.css" />
+    <link rel="stylesheet" href="../src/styles/book.css" />
+    <script type="module" src="pagination.test.js"></script>
+    <style>
+      body {
+        padding: 24px;
+      }
+      #fixture {
+        position: absolute;
+        inset: 0 auto auto -10000px;
+        width: 800px;
+        height: 800px;
+        display: block;
+        padding: 0;
+        pointer-events: none;
+        --reading-size: 22px;
+        --book-media-max-height: 90px;
+      }
+      #results {
+        max-width: 800px;
+      }
+      .pass {
+        color: #326135;
+      }
+      .fail {
+        color: #a52a2a;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Pagination checks</h1>
+    <p>
+      These tests measure real book typography in your browser. No test packages
+      are required.
+    </p>
+    <ol id="results"></ol>
+    <div
+      id="fixture"
+      class="book-overlay"
+      data-book-theme="paper"
+      aria-hidden="true"
+      inert
+    ></div>
+  </body>
+</html>

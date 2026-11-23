@@ -15,6 +15,7 @@
     />
     <link rel="stylesheet" href="src/styles/styles.css" />
     <link rel="stylesheet" href="src/styles/book.css" />
+    <link rel="stylesheet" href="src/styles/notes.css" />
     <script type="module" src="src/js/app.js"></script>
   </head>
   <body>
@@ -41,27 +42,11 @@
             />
           </svg>
         </button>
-        <button
-          class="icon-button"
-          data-pane="feedback"
-          aria-label="Send feedback"
-          title="Send feedback"
-        >
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M20 11.5a8 8 0 0 1-8.5 8L4 21l1.5-5A8 8 0 1 1 20 11.5Z" />
-            <path d="M8 10h8m-8 4h5" />
-          </svg>
+        <button class="icon-button" data-pane="notes" aria-label="Your notes" title="Your notes" aria-controls="drawer" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 3h14v13l-5 5H5Z"/><path d="M14 21v-5h5M8 8h8m-8 4h6"/></svg>
         </button>
-        <button
-          class="icon-button"
-          data-pane="about"
-          aria-label="About the developer"
-          title="About the developer"
-        >
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="8" r="3.5" />
-            <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
-          </svg>
+        <button class="icon-button more-button" data-pane="feedback" aria-label="Feedback and about the author" title="Feedback and about the author" aria-controls="drawer" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg>
         </button>
       </nav>
     </header>
@@ -167,8 +152,9 @@
       hidden
     >
       <header class="drawer-topbar">
-        <span class="eyebrow" id="drawer-label">THE READING ROOM</span
-        ><button
+        <span id="drawer-label">Appearance</span>
+        <div id="drawer-tabs" hidden></div>
+        <button
           class="icon-button close-button"
           id="close-drawer"
           aria-label="Close panel"

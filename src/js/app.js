@@ -1,5 +1,6 @@
 import { illustration } from "./illustrations.js";
 import { createBookReader } from "./book.js";
+import { createNotes } from "./notes.js";
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -50,6 +51,8 @@ let readIdeas = new Set(
     : []
   ).filter((id) => typeof id === "string"),
 );
+const notes = createNotes();
+let activePane = null;
 let previousFocus = null;
 let toastTimeout;
 let feedbackArticle = "";
@@ -65,6 +68,7 @@ const categories = [
   "Everyday life",
 ];
 const book = createBookReader({
+  onNotes(excerpt) { openNotes(excerpt); },
   onComplete(id) {
     setRead(id, true);
   },
@@ -81,7 +85,7 @@ function applyAppearance() {
     ? preferences.theme
     : "paper";
   document.documentElement.dataset.font =
-    preferences.font === "serif" ? "serif" : "sans";
+    ["sans", "serif", "handwritten"].includes(preferences.font) ? preferences.font : "sans";
   document.documentElement.style.setProperty(
     "--reading-size",
     `${Math.max(15, Math.min(22, Number(preferences.size) || 17))}px`,
@@ -191,6 +195,11 @@ function setSearchOpen(open) {
 function openDrawer(label) {
   if ($("#drawer").hidden) previousFocus = document.activeElement;
   $("#drawer-label").textContent = label;
+  const tabbed = activePane === "feedback" || activePane === "about";
+  $("#drawer-label").hidden = tabbed;
+  $("#drawer-tabs").hidden = !tabbed;
+  $("#drawer-tabs").innerHTML = tabbed ? utilityTabs(activePane) : "";
+  $("#drawer").setAttribute("aria-labelledby", tabbed ? `${activePane}-tab` : "drawer-label");
   $("#drawer").hidden = false;
   $("#drawer-backdrop").hidden = false;
   document.body.style.overflow = "hidden";
@@ -202,12 +211,21 @@ function openDrawer(label) {
 
 function closeDrawer({ updateURL = true } = {}) {
   if ($("#drawer").hidden) return;
+  preserveFeedbackDraft();
+  const wasNotes = activePane === "notes";
+  if (wasNotes) void notes.flush();
+  activePane = null;
   $("#drawer").hidden = true;
   $("#drawer-backdrop").hidden = true;
-  document.body.style.overflow = "";
-  $(".site-header").inert = false;
-  $(".site-main").inert = false;
-  if (updateURL)
+  $("#drawer").classList.remove("is-notes");
+  $("#drawer-backdrop").classList.remove("is-notes");
+  $(".book-overlay").inert = false;
+  $(".book-overlay").setAttribute("aria-modal", "true");
+  document.body.style.overflow = book.isOpen() ? "hidden" : "";
+  $(".site-header").inert = book.isOpen();
+  $(".site-main").inert = book.isOpen();
+  $(".skip-link").inert = book.isOpen();
+  if (updateURL && !wasNotes)
     history.replaceState(null, "", location.pathname + location.search);
   if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
   else $("#search-toggle").focus({ preventScroll: true });
@@ -232,35 +250,39 @@ function openArticle(id, updateURL = true) {
 }
 
 function openAppearance() {
-  $("#drawer-content").innerHTML =
-    `<div class="utility-content"><p class="eyebrow">MAKE YOURSELF AT HOME</p><h2 id="drawer-title">Your kind of quiet.</h2><p class="utility-intro">A little less glare. A little more room to read.<br>Make this corner of the internet feel like yours.</p><section class="setting-group"><div class="setting-heading"><h3>The mood</h3><span class="setting-value">A CHANGE OF SCENERY</span></div><div class="theme-options">${[
-      ["paper", "Paper"],
-      ["dusk", "After hours"],
-      ["rose", "Rosewater"],
-    ]
-      .map(
-        ([id, label]) =>
-          `<button class="theme-option" data-theme-option="${id}" aria-pressed="${preferences.theme === id}"><div class="theme-swatch swatch-${id}" aria-hidden="true"><span></span><span></span><span></span></div><span class="theme-name">${label}</span></button>`,
-      )
-      .join(
-        "",
-      )}</div></section><section class="setting-group"><div class="setting-heading"><h3>Your site font</h3></div><div class="segmented-control">${[
-      ["sans", "A clean slate"],
-      ["serif", "A bookish feel"],
-    ]
-      .map(
-        ([id, label]) =>
-          `<button class="${id === "serif" ? "serif-sample" : ""}" data-font-option="${id}" aria-pressed="${preferences.font === id}">${label}</button>`,
-      )
-      .join(
-        "",
-      )}</div></section><section class="setting-group"><div class="setting-heading"><h3><label for="reading-size">A little breathing room</label></h3><output for="reading-size" class="setting-value" id="size-value">${preferences.size}px</output></div><div class="size-control"><span aria-hidden="true">A</span><input id="reading-size" type="range" min="15" max="22" value="${preferences.size}" aria-label="Reading font size"><span aria-hidden="true">A</span></div></section><section class="setting-group toggle-row"><div><h3>A stiller world</h3><p>Keep the illustrations and diagrams still.</p></div><button class="toggle" id="motion-toggle" role="switch" aria-label="Reduce motion" aria-checked="${preferences.reducedMotion}"><span></span></button></section><div class="reading-preview"><p class="eyebrow">A LITTLE PREVIEW</p><p>A tiny difference now can become a very different world later. Curiosity is a good place to begin.</p></div><p class="appearance-note">Your preferences stay with this browser.</p></div>`;
+  $("#drawer-content").innerHTML = `<div class="utility-content appearance-content">
+    <h2 id="drawer-title">Set the scene.</h2>
+    <p class="utility-intro">Every good story needs a little light.</p>
+    <section class="setting-group" aria-labelledby="mood-title">
+      <div class="setting-heading"><h3 id="mood-title">The mood</h3></div>
+      <div class="theme-options">${[
+        ["paper", "Paper"], ["dusk", "After hours"], ["rose", "Rosewater"],
+      ].map(([id, label]) => `<button class="theme-option" data-theme-option="${id}" aria-pressed="${preferences.theme === id}"><div class="theme-swatch swatch-${id}" aria-hidden="true"><span></span><span></span><span></span></div><span class="theme-name">${label}</span></button>`).join("")}</div>
+    </section>
+    <section class="setting-group" aria-labelledby="font-title">
+      <div class="setting-heading"><h3 id="font-title">The lettering</h3></div>
+      <div class="segmented-control">${[
+        ["sans", "Clean"], ["serif", "Bookish"], ["handwritten", "Handwritten"],
+      ].map(([id, label]) => `<button class="font-sample-${id}" data-font-option="${id}" aria-pressed="${preferences.font === id}">${label}</button>`).join("")}</div>
+    </section>
+    <div class="reading-preview"><p class="eyebrow">A PAGE FROM HERE</p><p>One small thought. A door left ajar. Somewhere beyond it, a whole new way to see.</p></div>
+    <p class="appearance-note">Your setting for the next chapter. Saved in this browser.</p>
+  </div>`;
+}
+
+function utilityTabs(pane) {
+  return `<div class="utility-tabs" role="tablist" aria-label="Feedback and author"><button type="button" id="feedback-tab" role="tab" data-utility-tab="feedback" aria-selected="${pane === "feedback"}" aria-controls="utility-tab-panel" tabindex="${pane === "feedback" ? 0 : -1}">Send feedback</button><button type="button" id="about-tab" role="tab" data-utility-tab="about" aria-selected="${pane === "about"}" aria-controls="utility-tab-panel" tabindex="${pane === "about" ? 0 : -1}">About the author</button></div>`;
+}
+
+function preserveFeedbackDraft() {
+  const message = $("#feedback-message");
+  if (message) storage.set("feedback-draft", { type: $("#feedback-type").value, message: message.value });
 }
 
 function openFeedback() {
   const draft = storage.get("feedback-draft", {});
   $("#drawer-content").innerHTML =
-    `<div class="utility-content"><p class="eyebrow">A NOTE TO THE MAKER</p><h2 id="drawer-title">Found a loose thread?</h2><p class="utility-intro">A missing idea, a small correction, or a bug.<br>Every little note helps make this a better place.</p><form class="feedback-form" id="feedback-form"><label for="feedback-type">What's on your mind?</label><select id="feedback-type" name="type"><option>A small suggestion</option><option>A content correction</option><option>Something isn't working</option><option>An idea to add</option><option>Just saying hello</option></select><label for="feedback-message">Your note</label><textarea id="feedback-message" name="message" maxlength="3000" required placeholder="I was thinking…">${escapeHTML(feedbackArticle ? `About ${feedbackArticle}:\n\n` : draft.message || "")}</textarea><button class="primary-button" type="submit">Save feedback draft</button><p class="form-note">This is a design preview. Your note is saved only in this browser; sending will be connected before launch.</p></form></div>`;
+    `<div class="utility-content" id="utility-tab-panel" role="tabpanel" aria-labelledby="feedback-tab"><h2 id="drawer-title">Leave a thread.</h2><p class="utility-intro">A missing piece. A spark of an idea.<br>The next chapter might begin with you.</p><form class="feedback-form" id="feedback-form"><label for="feedback-type">What's on your mind?</label><select id="feedback-type" name="type"><option>A small suggestion</option><option>A content correction</option><option>Something isn't working</option><option>An idea to add</option><option>Just saying hello</option></select><label for="feedback-message">Your note</label><textarea id="feedback-message" name="message" maxlength="3000" required placeholder="I was thinking…">${escapeHTML(feedbackArticle ? `About ${feedbackArticle}:\n\n` : draft.message || "")}</textarea><button class="primary-button" type="submit">Save feedback draft</button><p class="form-note">This is a design preview. Your note is saved only in this browser; sending will be connected before launch.</p></form></div>`;
   if (feedbackArticle) $("#feedback-type").value = "A content correction";
   else if (draft.type) $("#feedback-type").value = draft.type;
   feedbackArticle = "";
@@ -268,10 +290,38 @@ function openFeedback() {
 
 function openAbout() {
   $("#drawer-content").innerHTML =
-    `<div class="utility-content"><p class="eyebrow">THE PERSON BEHIND THE PAGES</p><h2 id="drawer-title">Hello, fellow<br>curious person.</h2><div class="developer-art" aria-hidden="true"><span>{</span><span class="dev-star">✳</span><span>}</span></div><h3 class="developer-name">I'm Abhishek.</h3><div class="about-copy"><p>Theorama started with a simple thought: there are so many wonderful ideas out there. What if there were one quiet place to wander through them?</p><p>From the mathematics of a triangle to the strange ways our minds work, this is a growing field guide for anyone who likes asking “why?”</p><p>Made slowly, with curiosity. Built to be open to ideas, corrections, and a little help from other wandering minds.</p></div><button class="primary-button" data-pane="feedback">Leave me a note</button><div class="donation-box"><h3>A coffee for the curiosity?</h3><p>If this little corner of the internet makes your day a bit more interesting, you can help keep it growing.</p><button class="primary-button" id="support-button">☕ Buy me a coffee</button><p class="small-note">Support links are coming with the full site.</p></div><p class="small-note" style="margin-top:25px">A little field guide. A work in progress. Always curious.</p></div>`;
+    `<div class="utility-content" id="utility-tab-panel" role="tabpanel" aria-labelledby="about-tab"><h2 id="drawer-title">Behind the pages.</h2><div class="developer-art" aria-hidden="true"><span>{</span><span class="dev-star">✳</span><span>}</span></div><h3 class="developer-name">I'm Abhishek.</h3><div class="about-copy"><p>It began with a question scribbled in the margin: what if the world’s big ideas had a small, quiet home?</p><p>One question led to another. A triangle, a distant star, the strange turns of the human mind. The pages began to gather.</p><p>I’m still turning those pages. If you’ve ever paused to ask “why?”, there’s a place for you here.</p></div><button class="primary-button" data-pane="feedback">Leave me a note</button><div class="donation-box"><h3>Keep the lamp on?</h3><p>A little fuel for the late-night questions, and the pages still to come.</p><button class="primary-button" id="support-button">☕ Buy me a coffee</button><p class="small-note">Support links are coming with the full site.</p></div><p class="small-note" style="margin-top:25px">The story is still being written.</p></div>`;
+}
+
+function fitNotesViewport() {
+  const viewport = window.visualViewport;
+  if (activePane !== "notes" || !viewport) return;
+  $("#drawer").style.setProperty("--notes-viewport-height", `${viewport.height}px`);
+  $("#drawer").style.setProperty("--notes-viewport-top", `${viewport.offsetTop}px`);
+}
+window.visualViewport?.addEventListener("resize", fitNotesViewport);
+window.visualViewport?.addEventListener("scroll", fitNotesViewport);
+
+function openNotes(excerpt) {
+  // Notes are a temporary layer, so the article URL and reader stay intact.
+  activePane = "notes";
+  fitNotesViewport();
+  $("#drawer").classList.add("is-notes");
+  $("#drawer-backdrop").classList.add("is-notes");
+  void notes.mount($("#drawer-content"), excerpt);
+  openDrawer("Notes");
+  $(".skip-link").inert = true;
+  if (book.isOpen()) {
+    $(".book-overlay").inert = true;
+    $(".book-overlay").setAttribute("aria-modal", "false");
+  }
 }
 
 function openUtility(pane, updateURL = true) {
+  if (pane === "notes") return openNotes();
+  preserveFeedbackDraft();
+  if (activePane === "notes") closeDrawer({ updateURL: false });
+  activePane = pane;
   if (!["appearance", "feedback", "about"].includes(pane)) return;
   dismissBook();
   if (pane === "appearance") openAppearance();
@@ -280,9 +330,9 @@ function openUtility(pane, updateURL = true) {
   if (updateURL) setURL(pane);
   openDrawer(
     {
-      appearance: "A SPACE THAT FEELS LIKE YOU",
-      feedback: "THE SUGGESTION BOX",
-      about: "BEHIND THEORAMA",
+      appearance: "Appearance",
+      feedback: "Send feedback",
+      about: "About the author",
     }[pane],
   );
 }
@@ -332,6 +382,12 @@ document.addEventListener("click", async (event) => {
   }
   const idea = event.target.closest("[data-idea]");
   if (idea) return openArticle(idea.dataset.idea);
+  const tab = event.target.closest("[data-utility-tab]");
+  if (tab) {
+    openUtility(tab.dataset.utilityTab);
+    $(`[data-utility-tab="${tab.dataset.utilityTab}"]`).focus({ preventScroll: true });
+    return;
+  }
   const utility = event.target.closest("[data-pane]");
   if (utility) return openUtility(utility.dataset.pane);
   const filter = event.target.closest("[data-category]");
@@ -368,12 +424,6 @@ document.addEventListener("click", async (event) => {
         String(button.dataset.fontOption === preferences.font),
       ),
     );
-  }
-  if (event.target.closest("#motion-toggle")) {
-    preferences.reducedMotion = !preferences.reducedMotion;
-    $("#motion-toggle").setAttribute("aria-checked", preferences.reducedMotion);
-    applyAppearance();
-    storage.set("appearance", preferences);
   }
   if (event.target.closest("#support-button"))
     toast(
@@ -421,14 +471,6 @@ $("#reset-search").addEventListener("click", () => {
   renderCollection();
   $("#search-toggle").focus();
 });
-document.addEventListener("input", (event) => {
-  if (event.target.id === "reading-size") {
-    preferences.size = Number(event.target.value);
-    $("#size-value").textContent = `${preferences.size}px`;
-    applyAppearance();
-    storage.set("appearance", preferences);
-  }
-});
 document.addEventListener("submit", (event) => {
   if (event.target.id !== "feedback-form") return;
   event.preventDefault();
@@ -445,6 +487,14 @@ document.addEventListener("submit", (event) => {
   $("#copy-feedback").focus();
 });
 document.addEventListener("keydown", (event) => {
+  const tab = event.target.closest("[data-utility-tab]");
+  if (tab && ["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+    event.preventDefault();
+    const pane = event.key === "Home" ? "feedback" : event.key === "End" ? "about" : tab.dataset.utilityTab === "feedback" ? "about" : "feedback";
+    openUtility(pane);
+    $(`[data-utility-tab="${pane}"]`).focus({ preventScroll: true });
+    return;
+  }
   const isTyping =
     /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) ||
     document.activeElement.isContentEditable;
@@ -461,9 +511,9 @@ document.addEventListener("keydown", (event) => {
   }
   if (event.key === "Tab" && !$("#drawer").hidden) {
     const focusable = $$(
-      'button:not([disabled]),a[href],input,textarea,select,[tabindex="0"]',
+      'button:not([disabled]),a[href],input,textarea,select,[tabindex="0"],[contenteditable="true"]',
       $("#drawer"),
-    ).filter((el) => el.getClientRects().length);
+    ).filter((el) => el.getAttribute("tabindex") !== "-1" && el.getClientRects().length);
     const first = focusable[0],
       last = focusable[focusable.length - 1];
     if (!$("#drawer").contains(document.activeElement)) {
