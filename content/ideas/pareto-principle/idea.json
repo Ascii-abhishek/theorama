@@ -1,0 +1,127 @@
+{
+  "id": "pareto-principle",
+  "title": "The Pareto Principle",
+  "description": "A small share of causes can account for a large share of results.",
+  "category": "Everyday life",
+  "kind": "Principle",
+  "tags": [
+    "Everyday life",
+    "Productivity",
+    "Systems"
+  ],
+  "attribution": "Vilfredo Pareto; generalized by Joseph Juran",
+  "year": "1890s / 20th century",
+  "color": "peach",
+  "takeaway": "Measure the biggest contributors before spreading effort evenly.",
+  "illustration": "pareto-principle",
+  "sections": {
+    "details": [
+      {
+        "id": "details-1",
+        "title": "When contributions are uneven",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A small set of issues might account for many support requests. A few tasks might create a large share of a project’s immediate value. The Pareto Principle invites us to look for this kind of concentration before spreading attention evenly across every possible cause."
+          },
+          {
+            "type": "paragraph",
+            "text": "The familiar 80/20 wording is a rule of thumb, not a universal measurement. Actual contributions may follow another ratio or no striking concentration at all. The observation becomes useful when it motivates measurement rather than replaces it."
+          },
+          {
+            "type": "paragraph",
+            "text": "Vilfredo Pareto studied unequal economic distributions. Joseph Juran later generalized the idea of a vital few contributors in quality improvement. The practical question is which contributors matter most for the outcome being examined."
+          }
+        ]
+      },
+      {
+        "id": "details-2",
+        "title": "Rank first, decide second",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A Pareto chart orders categories by their measured contribution. That order can make concentration visible: perhaps a few categories dominate, or perhaps the totals are spread more evenly. Either result is information. There is no need to force the pattern into a preset 80/20 split."
+          },
+          {
+            "type": "paragraph",
+            "text": "Choosing the outcome comes before ranking the causes. Number of incidents, time consumed, and severity are different measures. A category that contributes little to one can still matter greatly to another. An apparently neat priority list therefore depends on what has been counted."
+          },
+          {
+            "type": "paragraph",
+            "text": "The principle is a prioritization heuristic rather than a theorem about every system. Use the ranking to begin a decision, then include risks, long-term value, and obligations that a single measured total does not capture."
+          }
+        ]
+      },
+      {
+        "id": "details-3",
+        "title": "Find the leaks that matter",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Imagine measuring several leaking pipes. A few repairs might address much of the current waste. Equal attention to every pipe could miss that opportunity, without any particular numerical ratio being required."
+          },
+          {
+            "type": "paragraph",
+            "text": "A small current leak may still matter for another reason. Consider risks and longer-term value, then measure again after addressing the largest contributors."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Choose the outcome before ranking causes.",
+              "Use measurements rather than a preset ratio.",
+              "Ask what the chosen measure leaves out."
+            ]
+          }
+        ]
+      }
+    ],
+    "mental": [
+      {
+        "id": "mental-1",
+        "title": "Find the leaky pipes",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "If a few leaks waste most of a building’s water, equal attention to every pipe could miss an opportunity. Measure the leaks first, then rank their contribution to the waste. The picture keeps your attention on an observed distribution rather than a memorable ratio."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Choose a meaningful outcome to measure.",
+              "Rank its contributors by size.",
+              "Focus attention, then measure again."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mental-2",
+        "title": "A ranking is a beginning",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Ask whether the largest measured contributors are also the most important to address. That may be true, but the answer should account for the costs, risks, and longer-term consequences that the chosen measure leaves out."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep in mind: a small current contribution does not make something unimportant or safe to ignore."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "What exactly has been counted?",
+              "What important outcome has not been counted?",
+              "Does the distribution change after you act?"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "Juran Institute · History of the Pareto Principle",
+      "url": "https://www.juran.com/about-us/dr-jurans-history/"
+    }
+  ]
+}

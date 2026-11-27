@@ -4,24 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f7f5ed" />
-    <meta
-      name="description"
-      content="A little field guide to big ideas. Explore the theories, laws, and mental models that help us make sense of the world."
-    />
-    <title>Theorama — A little field guide to big ideas</title>
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23eb775a'/%3E%3Ctext x='32' y='48' font-size='53' text-anchor='middle' fill='%23272a25'%3E✳%3C/text%3E%3C/svg%3E"
-    />
-    <link rel="stylesheet" href="src/styles/styles.css" />
-    <link rel="stylesheet" href="src/styles/book.css" />
-    <link rel="stylesheet" href="src/styles/notes.css" />
-    <script type="module" src="src/js/app.js"></script>
+    <meta name="description" content="%%DESCRIPTION%%" />
+    <title>%%TITLE%%</title>
+    %%METADATA%%
+    %%EARLY_SCRIPT%%
+    <link rel="icon" href="%%ASSETS%%assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="%%ASSETS%%src/styles/styles.css" />
+    <script type="module" src="%%ASSETS%%src/js/app.js"></script>
   </head>
-  <body>
-    <a class="skip-link" href="#collection">Skip to ideas</a>
+  <body data-base="%%BASE%%" data-assets="%%ASSETS%%" %%PAGE_DATA%%>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
-      <a class="wordmark" href="./" aria-label="Theorama home"
+      <a class="wordmark" href="%%BASE%%" aria-label="Theorama home"
         ><span class="brand-mark" aria-hidden="true">✳</span>theorama<span
           class="wordmark-period"
           >.</span
@@ -31,7 +25,7 @@
       <nav class="header-actions" aria-label="Site tools">
         <button
           class="icon-button"
-          data-pane="appearance"
+          data-pane="appearance" hidden aria-controls="drawer" aria-haspopup="dialog"
           aria-label="Appearance"
           title="Appearance"
         >
@@ -42,118 +36,29 @@
             />
           </svg>
         </button>
-        <button class="icon-button" data-pane="notes" aria-label="Your notes" title="Your notes" aria-controls="drawer" aria-haspopup="dialog">
+        <button class="icon-button" data-pane="notes" hidden aria-label="Your notes" title="Your notes" aria-controls="drawer" aria-haspopup="dialog">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 3h14v13l-5 5H5Z"/><path d="M14 21v-5h5M8 8h8m-8 4h6"/></svg>
         </button>
-        <button class="icon-button more-button" data-pane="feedback" aria-label="Feedback and about the author" title="Feedback and about the author" aria-controls="drawer" aria-haspopup="dialog">
+        <button class="icon-button more-button" data-pane="about" hidden aria-label="About Theorama" title="About Theorama" aria-controls="drawer" aria-haspopup="dialog">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg>
         </button>
       </nav>
     </header>
 
-    <main class="site-main">
-      <section class="discovery" aria-label="Find an idea">
-        <h1 class="sr-only">Explore Theorama's collection of ideas</h1>
-        <div class="toolbar-browse">
-          <div class="search-box" id="search-box">
-            <button
-              class="search-toggle"
-              id="search-toggle"
-              aria-label="Search ideas"
-              aria-expanded="false"
-              aria-controls="search"
-            >
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="10.7" cy="10.7" r="6.7" />
-                <path d="m16 16 4.5 4.5" />
-              </svg>
-            </button>
-            <label class="sr-only" for="search"
-              >Search ideas, subjects, or authors</label
-            >
-            <input
-              id="search"
-              type="search"
-              placeholder="Find a little curiosity…"
-              autocomplete="off"
-              hidden
-            />
-          </div>
-          <div
-            class="subject-filters"
-            aria-label="Filter by subject"
-            id="filters"
-          ></div>
-        </div>
-        <div class="toolbar-actions">
-          <button
-            class="hide-read-button"
-            id="hide-read"
-            aria-pressed="false"
-            title="Hide ideas you've already read"
-          >
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="8" />
-              <path d="m8.5 12 2.5 2.5 4.5-5" /></svg
-            ><span>Hide read</span>
-          </button>
-          <button class="surprise-button" id="surprise" title="Surprise me">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <rect
-                x="4"
-                y="4"
-                width="16"
-                height="16"
-                rx="3"
-                transform="rotate(-10 12 12)"
-              />
-              <circle cx="8.5" cy="8.5" r=".8" />
-              <circle cx="15.5" cy="15.5" r=".8" />
-              <circle cx="12" cy="12" r=".8" /></svg
-            ><span>Surprise me</span>
-          </button>
-        </div>
-      </section>
-
-      <section
-        class="featured-section"
-        aria-label="Featured idea"
-        id="featured"
-      ></section>
-
-      <section
-        class="collection"
-        id="collection"
-        aria-labelledby="collection-title"
-      >
-        <div class="collection-heading">
-          <h2 id="collection-title">All ideas</h2>
-          <p id="result-count" aria-live="polite"></p>
-        </div>
-        <div class="ideas-grid" id="ideas-grid" aria-label="Ideas"></div>
-        <div class="empty-state" id="empty-state" hidden>
-          <span aria-hidden="true">✳</span>
-          <h3>No ideas in this corner. Yet.</h3>
-          <p>Try another thought, or start with a clean slate.</p>
-          <button class="primary-button" id="reset-search">
-            Show all ideas
-          </button>
-        </div>
-      </section>
-    </main>
+    %%MAIN%%
 
     <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
     <aside
       class="drawer"
       id="drawer"
       role="dialog"
+      tabindex="-1"
       aria-modal="true"
-      aria-labelledby="drawer-title"
+      aria-labelledby="drawer-label"
       hidden
     >
       <header class="drawer-topbar">
         <span id="drawer-label">Appearance</span>
-        <div id="drawer-tabs" hidden></div>
         <button
           class="icon-button close-button"
           id="close-drawer"
@@ -167,6 +72,10 @@
       <div class="drawer-scroll" id="drawer-content"></div>
     </aside>
     <div id="book-root"></div>
-    <div class="toast" id="toast" role="status" hidden></div>
+    <div class="site-banner" id="site-banner" hidden>
+      <p id="site-banner-message" role="status"></p>
+      <button type="button" id="site-banner-action" hidden></button>
+      <button type="button" id="site-banner-close" aria-label="Dismiss notification">×</button>
+    </div>
   </body>
 </html>

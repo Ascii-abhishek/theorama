@@ -1,0 +1,6 @@
+export function diagram(kind) {
+  if (kind === "divergence") {
+    return `<figure class="book-diagram"><svg viewBox="0 0 420 180" role="img" aria-label="Two similar starting points gradually diverge"><path d="M25 140h370M25 140V18" stroke="currentColor" opacity=".25"/><path class="book-trajectory" d="M25 86C74 87 83 44 123 56S161 130 207 107 258 28 297 48 347 125 393 43" stroke="var(--accent)"/><path class="book-trajectory book-trajectory-second" d="M25 89C74 89 84 50 124 62S167 143 210 119 258 92 292 117 349 59 393 129" stroke="currentColor"/><circle cx="25" cy="86" r="3" fill="var(--accent)"/><circle cx="25" cy="89" r="3" fill="currentColor"/><text x="25" y="165">NEARLY IDENTICAL STARTS</text><text x="312" y="165">TIME</text></svg><figcaption>A conceptual illustration of sensitivity, rather than a scientific simulation.</figcaption></figure>`;
+  }
+  return `<figure class="book-diagram"><svg viewBox="0 0 420 100" role="img" aria-label="Notice, question, understand"><g fill="none" stroke="currentColor"><rect x="5" y="22" width="115" height="56" rx="5"/><path d="M120 50h25m130 0h25"/><rect x="145" y="22" width="130" height="56" rx="5"/><rect x="300" y="22" width="115" height="56" rx="5"/></g><g text-anchor="middle"><text x="62" y="54">NOTICE</text><text x="210" y="54">QUESTION</text><text x="357" y="54">UNDERSTAND</text></g></svg></figure>`;
+}

@@ -1,0 +1,131 @@
+{
+  "id": "dunning-kruger",
+  "title": "The Dunning–Kruger Effect",
+  "description": "Judging your own skill can require the very skill you are still learning.",
+  "category": "Psychology",
+  "kind": "Effect",
+  "tags": [
+    "Psychology",
+    "Bias",
+    "Learning"
+  ],
+  "attribution": "Justin Kruger and David Dunning",
+  "year": "1999",
+  "color": "pink",
+  "takeaway": "Calibrate confidence against evidence and useful feedback.",
+  "illustration": "dunning-kruger",
+  "sections": {
+    "details": [
+      {
+        "id": "details-1",
+        "title": "Knowing, and knowing that you know",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Performing a task and judging how well you performed it are related but different activities. Recognizing a mistake can require some of the same knowledge needed to avoid it. This is the central intuition behind the proposed metacognitive explanation of the Dunning–Kruger effect."
+          },
+          {
+            "type": "paragraph",
+            "text": "In the original 1999 studies, lower-performing participants substantially overestimated their standing on particular tasks involving humor, grammar, and logical reasoning. The findings concern self-assessment within domains, not a simple ranking of people’s overall intelligence."
+          },
+          {
+            "type": "paragraph",
+            "text": "The useful response is to investigate our own blind spots and improve calibration through feedback. Turning the label into an insult aimed at someone else misses that opportunity and often claims more than the research establishes."
+          }
+        ]
+      },
+      {
+        "id": "details-2",
+        "title": "Compare confidence with evidence",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Imagine a learner making a prediction about the quality of their work, then comparing it with an independent assessment. The difference between the prediction and the assessment reveals something about calibration. That comparison is more informative than confidence alone."
+          },
+          {
+            "type": "paragraph",
+            "text": "The original explanation emphasized metacognitive skill: evaluating a performance may be difficult when the relevant skill is still developing. Researchers also debate how much of the observed pattern reflects measurement and statistical effects. A careful account keeps those questions visible rather than treating one explanation as settled."
+          },
+          {
+            "type": "paragraph",
+            "text": "The familiar internet drawing of a confidence mountain is not a universal learning curve established by the original study. A compelling picture should not be mistaken for the evidence it is supposed to summarize."
+          }
+        ]
+      },
+      {
+        "id": "details-3",
+        "title": "Learning to hear the wrong note",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Picture a new musician who cannot yet hear mistakes obvious to a trained listener. Practice may improve both performing and evaluating. This is an analogy, not a diagnosis of every learner."
+          },
+          {
+            "type": "paragraph",
+            "text": "Compare a specific prediction with independent feedback. Self-assessment can be poorly calibrated at any level; a task-specific finding does not define someone’s overall intelligence."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Keep conclusions tied to a domain.",
+              "Seek feedback rather than identity labels.",
+              "The popular confidence mountain is not a universal learning curve."
+            ]
+          }
+        ]
+      }
+    ],
+    "mental": [
+      {
+        "id": "mental-1",
+        "title": "Learning to hear a wrong note",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A learner may struggle to hear the very mistakes they are trying to stop making. Imagine practice as improving two skills at once: doing the task and recognizing how the attempt went. An independent reference helps reveal the gap between confidence and performance."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Predict how the attempt will go.",
+              "Compare it with an independent measure.",
+              "Use the gap to guide practice."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mental-2",
+        "title": "Make room for calibration",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The question is not whether you are a confident person. It is whether this particular confidence fits the available evidence. Look for a way to compare an expectation with a result, and keep the conclusion narrow enough to learn from."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep in mind: the popular confidence mountain is not a universal learning curve established by the original study."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Which part of this task can I judge reliably?",
+              "What feedback would reveal a missed error?",
+              "How should the next prediction change?"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "Kruger & Dunning · Original study (1999)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/10626367/"
+    },
+    {
+      "label": "Later research · An empirical critique",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9727674/"
+    }
+  ]
+}

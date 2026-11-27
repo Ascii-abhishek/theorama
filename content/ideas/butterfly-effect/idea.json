@@ -1,0 +1,136 @@
+{
+  "id": "butterfly-effect",
+  "title": "The Butterfly Effect",
+  "description": "Tiny changes at the beginning can lead to wildly different outcomes.",
+  "category": "Physics",
+  "kind": "Effect",
+  "tags": [
+    "Physics",
+    "Chaos",
+    "Complex systems"
+  ],
+  "attribution": "Edward Lorenz",
+  "year": "1963",
+  "color": "peach",
+  "takeaway": "Knowing the rules does not always mean knowing what happens next.",
+  "illustration": "butterfly-effect",
+  "sections": {
+    "details": [
+      {
+        "id": "details-1",
+        "title": "Small beginnings, different futures",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Imagine running the same weather model twice. The equations are identical. The starting temperatures, pressures, and winds appear identical too, except for a difference smaller than the precision of an ordinary measurement. For a while, the two forecasts resemble one another. Later, their predictions can separate dramatically."
+          },
+          {
+            "type": "paragraph",
+            "text": "The butterfly effect names this sensitivity to initial conditions in certain systems. It is not a claim that every small event transforms the world. It says that some dynamics repeatedly amplify small differences, so an almost perfect description of the beginning may still leave the distant future uncertain."
+          },
+          {
+            "type": "paragraph",
+            "text": "Edward Lorenz’s work made this distinction vivid: a system can follow definite rules without offering a practically predictable long-term path. The difficulty comes from the interaction between those rules and what we can know about the starting state."
+          }
+        ]
+      },
+      {
+        "id": "details-2",
+        "title": "Same rules, separating paths",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A deterministic rule fixes what happens next from the current state. Nearby states need not stay nearby: in a sensitive system, their separation can grow through repeated interactions. This uncertainty develops through the dynamics, rather than being added as random noise."
+          },
+          {
+            "type": "paragraph",
+            "text": "Lorenz’s 1963 model used three nonlinear differential equations. Its bounded, nonrepeating trajectories showed why knowing the rules differs from predicting the path. An attractor describes their geometry, not a timetable."
+          },
+          {
+            "type": "animation",
+            "src": "media/nearby-paths.webp",
+            "poster": "media/nearby-paths.png",
+            "width": 560,
+            "height": 300,
+            "alt": "A two-line graph shows trajectories from nearby starting values following the same rule and diverging over successive steps.",
+            "caption": "The same logistic map is applied to two starting values, 0.4100 and 0.4102. Compare the paths after several steps. The graph illustrates sensitive dependence."
+          },
+          {
+            "type": "diagram",
+            "name": "divergence"
+          }
+        ]
+      },
+      {
+        "id": "details-3",
+        "title": "What the butterfly does—and does not—say",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Picture two marbles released almost together on an uneven slope. Small differences at early bumps can send them into different valleys. This illustrates divergence, without claiming that every hillside behaves chaotically."
+          },
+          {
+            "type": "paragraph",
+            "text": "The butterfly is a metaphor, not evidence that one wingbeat caused a particular storm. Scientific predictions still require a model, measurements, and an appropriate timescale."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Ask whether this system amplifies small differences.",
+              "Separate uncertainty about beginnings from uncertain rules.",
+              "Limited prediction does not make every outcome equally likely."
+            ]
+          }
+        ]
+      }
+    ],
+    "mental": [
+      {
+        "id": "mental-1",
+        "title": "Two marbles, one uneven hill",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Picture the marbles before they move. They almost share a starting point. Now picture each small bump nudging them a little further apart. The striking result is not that the rules changed, but that the same rules acted on slightly different beginnings."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Start with nearly identical conditions.",
+              "Let repeated interactions amplify the difference.",
+              "Watch the paths separate over time."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mental-2",
+        "title": "Carry uncertainty honestly",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Use this model as a question about a system, rather than a dramatic story about fate. What is being measured? How precise is that measurement? Do nearby starting points stay together or move apart? A good answer keeps those questions visible."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep in mind: small changes do not always have large consequences. The system and its conditions matter."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "State what you know about the initial conditions.",
+              "Look for mechanisms that amplify differences.",
+              "Keep the confidence of a prediction tied to its timescale."
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "Lorenz · Deterministic Nonperiodic Flow (1963)",
+      "url": "https://cdanfort.w3.uvm.edu/research/lorenz-1963.pdf"
+    }
+  ]
+}

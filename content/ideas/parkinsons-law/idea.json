@@ -1,0 +1,127 @@
+{
+  "id": "parkinsons-law",
+  "title": "Parkinson's Law",
+  "description": "The more time a task gets, the more room it finds to grow.",
+  "category": "Everyday life",
+  "kind": "Law",
+  "tags": [
+    "Everyday life",
+    "Productivity",
+    "Time"
+  ],
+  "attribution": "C. Northcote Parkinson",
+  "year": "1955",
+  "color": "yellow",
+  "takeaway": "Give a task a clear boundary and a realistic finish line.",
+  "illustration": "parkinsons-law",
+  "sections": {
+    "details": [
+      {
+        "id": "details-1",
+        "title": "The task and its container",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Give yourself an afternoon to write a short message. You might draft it, reconsider the opening, adjust the tone, and polish each sentence. Give the same task a sensible shorter window, and the useful outcome may become easier to see. The work and the space around the work are not always independent."
+          },
+          {
+            "type": "paragraph",
+            "text": "Parkinson’s Law is an observation about this tendency for work to expand into the time available. C. Northcote Parkinson introduced the idea in a humorous essay about bureaucracy in 1955. Its memorable name does not make it a measured law of nature."
+          },
+          {
+            "type": "paragraph",
+            "text": "The interesting question is how a deadline shapes scope, attention, and the definition of finished. A task can grow because more work is discovered, or because more work is invented."
+          }
+        ]
+      },
+      {
+        "id": "details-2",
+        "title": "How extra time becomes extra scope",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "An open-ended task leaves many decisions unresolved. How polished should the result be? How many alternatives deserve consideration? Which details are necessary? Without a clear boundary, each additional possibility can become another reason to continue."
+          },
+          {
+            "type": "paragraph",
+            "text": "Timeboxing is one practical interpretation of Parkinson’s observation. Define a useful result, choose a realistic period, and review what happens when it ends. The boundary is an experiment in scope and attention. It does not magically reduce the amount of difficult thinking a task requires."
+          },
+          {
+            "type": "paragraph",
+            "text": "A helpful comparison asks what changed: the quality of the result, the amount of unnecessary revision, or simply the amount of time recorded. A shorter clock is only useful when the outcome still serves its purpose."
+          }
+        ]
+      },
+      {
+        "id": "details-3",
+        "title": "A finish line worth reaching",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Imagine preparing three reading recommendations for a friend. Without a clear finish line, the task might become an exhaustive survey with elaborate rankings. Those are different outcomes, requiring different amounts of work."
+          },
+          {
+            "type": "paragraph",
+            "text": "A sensible boundary makes scope explicit while allowing time for care and checking. An impossible deadline can damage quality or leave repairs for later."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Define “done” before adding optional polish.",
+              "Choose a realistic boundary, then review.",
+              "Judge the outcome, not just the clock."
+            ]
+          }
+        ]
+      }
+    ],
+    "mental": [
+      {
+        "id": "mental-1",
+        "title": "A task behaves like a balloon",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Imagine a task expanding into the container you give it. Extra space invites another revision, another detour, another possible improvement. A sensible container encourages a choice about what matters most. The image is a reminder to define scope, not a literal rule about every task."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Name the useful outcome.",
+              "Choose a realistic timebox.",
+              "Stop and review when it ends."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mental-2",
+        "title": "Review the boundary, not just the clock",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "After a timebox, ask whether the work is useful and what remains unfinished. If an important check was squeezed out, adjust the boundary. If the time disappeared into optional polish, adjust the definition of done. Either finding teaches you something."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep in mind: complex work still needs enough time. Speed alone is not a measure of quality."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "What must be true for this task to be complete?",
+              "Which additions improve the outcome?",
+              "What would you change about the next timebox?"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "Parkinson · The original 1955 essay",
+      "url": "https://scrummaster.dk/lib/AgileLeanLibrary/_Misc/Parkinson%27s%20Law%20_%20The%20Economist.pdf"
+    }
+  ]
+}

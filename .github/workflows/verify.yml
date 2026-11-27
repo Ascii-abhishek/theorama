@@ -1,0 +1,66 @@
+name: Verify Theorama
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  content-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm run check
+      - run: npm test
+      - run: npm run build
+
+  browser:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    env:
+      TEST_BROWSER: ${{ matrix.browser }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install Playwright for browser checks
+        run: |
+          npm install --prefix "$RUNNER_TEMP/theorama-tests" --no-save --ignore-scripts playwright@1.60.0
+          "$RUNNER_TEMP/theorama-tests/node_modules/.bin/playwright" install --with-deps "$TEST_BROWSER"
+          echo "PLAYWRIGHT_MODULE=$RUNNER_TEMP/theorama-tests/node_modules/playwright" >> "$GITHUB_ENV"
+      - run: npm run test:browser
+
+  production:
+    needs: [content-and-build, browser]
+    if: ${{ vars.SITE_URL != '' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    env:
+      SITE_URL: ${{ vars.SITE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm run build:production
+      - uses: actions/upload-artifact@v4
+        with:
+          name: theorama-public
+          path: dist/
+          retention-days: 14

@@ -45,7 +45,7 @@ export function paginateBook({ blocks, createPage, mount, width, height }) {
     continues = false,
   ) {
     const root = block.create();
-    const target = root.matches("[data-flow-text]")
+    const target = text === undefined ? null : root.matches("[data-flow-text]")
       ? root
       : root.querySelector("[data-flow-text]");
     const anchor = target || root;
@@ -78,14 +78,14 @@ export function paginateBook({ blocks, createPage, mount, width, height }) {
         const frame = element.matches("[data-book-media]")
           ? element
           : element.querySelector("[data-book-media]");
-        if (!fits() && frame) {
+        if (!block.allowScroll && !fits() && frame) {
           const overflow = scroller.scrollHeight - scroller.clientHeight;
           frame.style.setProperty(
             "--media-fit-height",
             `${Math.max(1, frame.getBoundingClientRect().height - overflow - 2)}px`,
           );
         }
-        if (!fits()) throw new Error(`Book block cannot fit: ${block.id}`);
+        if (!block.allowScroll && !fits()) throw new Error(`Book block cannot fit: ${block.id}`);
         count++;
         continue;
       }

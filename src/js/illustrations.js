@@ -108,7 +108,9 @@ const drawings = {
   )}`,
 };
 
+export const hasIllustration = (id) => Object.hasOwn(drawings, id);
+
 export function illustration(id, className = "") {
   const safeClass = String(className).replace(/["<>&]/g, "");
-  return `<svg class="idea-illustration ${safeClass}" viewBox="0 0 200 180" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${drawings[id] || drawings["butterfly-effect"]}</svg>`;
+  return `<svg class="idea-illustration ${safeClass}" viewBox="0 0 200 180" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${hasIllustration(id) ? drawings[id] : drawings["butterfly-effect"]}</svg>`;
 }

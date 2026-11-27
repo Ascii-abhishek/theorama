@@ -1,18 +1,25 @@
-import { NOTE_LIMIT, NOTE_COLORS, NOTE_DEFAULTS, createNotesStore } from "./notes-store.js";
+import { NOTE_LIMIT, NOTE_COLORS, NOTE_DEFAULTS, createNotesStore, isCustomColor } from "./notes-store.js";
 import { escapeNoteHTML, renderNote, serializeNote, formatNoteInput } from "./notes-markdown.js";
 
-export const notesIcon = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 3h14v13l-5 5H5Z"/><path d="M14 21v-5h5M8 8h8m-8 4h6"/></svg>';
-
-export function createNotes() {
+export function createNotes({ onNotice = () => {} } = {}) {
   const store = createNotesStore();
   const root = document.createElement("section");
   root.className = "notes-content";
-  const colorNames = { white: "White", yellow: "Yellow", red: "Rose", green: "Sage", blue: "Blue", gray: "Charcoal" };
+  const colorNames = { theme: "Follow theme", white: "White", yellow: "Yellow", red: "Rose", green: "Sage", blue: "Blue", gray: "Charcoal" };
+  const contrastingInk = (hex) => {
+    const channels = hex.slice(1).match(/../g).map((pair) => parseInt(pair, 16) / 255);
+    const luminance = channels.reduce((sum, value, index) => {
+      const linear = value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4;
+      return sum + linear * [.2126, .7152, .0722][index];
+    }, 0);
+    return luminance > .179 ? "#000000" : "#ffffff";
+  };
   const fonts = ["sans", "serif", "mono"];
   const fontNames = { sans: "Sans", serif: "Serif", mono: "Mono" };
   root.innerHTML = `<div class="notes-controls">
-    <div class="notes-colors" role="group" aria-label="Note color">${NOTE_COLORS.map((color) => `<button type="button" class="notes-swatch" data-note-color="${color}" aria-label="${colorNames[color]} paper" aria-pressed="false"><span aria-hidden="true">✓</span></button>`).join("")}</div>
-    <select class="notes-color-select" aria-label="Note color">${NOTE_COLORS.map((color) => `<option value="${color}">${colorNames[color]}</option>`).join("")}</select>
+    <div class="notes-colors" role="group" aria-label="Note color">${NOTE_COLORS.map((color) => `<button type="button" class="notes-swatch" data-note-color="${color}" aria-label="${color === "theme" ? colorNames[color] : colorNames[color] + " paper"}" aria-pressed="false"><span aria-hidden="true">✓</span></button>`).join("")}</div>
+    <select class="notes-color-select" aria-label="Note color">${NOTE_COLORS.map((color) => `<option value="${color}">${colorNames[color]}</option>`).join("")}<option value="custom" disabled>Custom</option></select>
+    <input type="color" class="notes-custom-color" value="#d8c693" aria-label="Choose a custom note color" title="Custom note color" />
     <div class="notes-type"><button class="notes-font" type="button" aria-label="Cycle note font">Sans</button><select class="notes-size" aria-label="Note text size">${[15,17,20,24].map((size) => `<option value="${size}">${size}</option>`).join("")}</select></div>
     </div>
     <div class="notes-paper"><div class="notes-editor" role="textbox" aria-label="Your personal note" aria-multiline="true" contenteditable="false" spellcheck="true" data-placeholder="Leave a little thought here…"></div></div>
@@ -39,6 +46,7 @@ export function createNotes() {
     const problem = kind !== "status";
     $(".notes-alert").textContent = problem ? text : "";
     $(".notes-alert").hidden = !problem;
+    if (kind === "storage") onNotice(text, { type: "error" });
     if (problem) $(".notes-recovery").hidden = false;
     else if (!conflict) $(".notes-recovery").hidden = true;
     if (kind === "notice") {
@@ -47,10 +55,20 @@ export function createNotes() {
     }
   }
   function styles() {
-    root.dataset.noteColor = note.color;
+    const custom = isCustomColor(note.color);
+    root.dataset.noteColor = custom ? "custom" : note.color;
     const drawer = root.closest(".drawer");
-    if (drawer) drawer.dataset.noteColor = note.color;
-    $(".notes-color-select").value = note.color;
+    if (drawer) {
+      drawer.dataset.noteColor = root.dataset.noteColor;
+      if (custom) {
+        drawer.style.setProperty("--custom-note-paper", note.color);
+        const ink = contrastingInk(note.color);
+        drawer.style.setProperty("--custom-note-ink", ink);
+        drawer.dataset.noteScheme = ink === "#ffffff" ? "dark" : "light";
+      }
+    }
+    $(".notes-color-select").value = root.dataset.noteColor;
+    if (custom) $(".notes-custom-color").value = note.color;
     editor.style.fontFamily = `var(--${note.font === "sans" ? "sans" : note.font === "serif" ? "serif" : "mono"})`;
     editor.style.fontSize = `${note.size}px`;
     $(".notes-font").textContent = fontNames[note.font];
@@ -126,8 +144,7 @@ export function createNotes() {
   function input() {
     if (formatting || composing) return;
     formatting = true;
-    formatNoteInput(editor);
-    formatting = false;
+    try { formatNoteInput(editor); } finally { formatting = false; }
     const markdown = serializeNote(editor);
     if (markdown.length > NOTE_LIMIT) {
       editor.innerHTML = acceptedHTML; endCaret();
@@ -144,7 +161,7 @@ export function createNotes() {
   editor.addEventListener("blur", () => { if (composing) { composing = false; input(); } void flush(); });
   editor.addEventListener("paste", (event) => {
     event.preventDefault();
-    const text = event.clipboardData.getData("text/plain").replace(/\r\n?/g, "\n");
+    const text = (event.clipboardData?.getData("text/plain") ?? "").replace(/\r\n?/g, "\n");
     if (note.markdown.length + text.length - (window.getSelection()?.toString().length || 0) > NOTE_LIMIT) {
       message("That text won’t fit. Notes have room for 20,000 characters.", "notice"); return;
     }
@@ -161,6 +178,12 @@ export function createNotes() {
   });
   $(".notes-color-select").addEventListener("change", (event) => {
     if (loaded && !loading) { note.color = event.target.value; changed(); }
+  });
+  $(".notes-custom-color").addEventListener("input", (event) => {
+    if (loaded && !loading && isCustomColor(event.target.value)) {
+      note.color = event.target.value;
+      changed();
+    }
   });
   const info = $(".notes-info"), infoButton = $(".notes-info-button"), infoPanel = $(".notes-info-panel");
   function showInfo(open) { infoPanel.hidden = !open; infoButton.setAttribute("aria-expanded", String(open)); }
@@ -201,5 +224,10 @@ export function createNotes() {
       }
     },
     flush,
+    async canRefresh() {
+      if (composing) return false;
+      await flush();
+      return !dirty && !conflict;
+    },
   };
 }

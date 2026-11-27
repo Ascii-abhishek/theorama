@@ -1,0 +1,127 @@
+{
+  "id": "pythagorean-theorem",
+  "title": "Pythagorean Theorem",
+  "description": "A right triangle connects three lengths through one elegant equation.",
+  "category": "Mathematics",
+  "kind": "Theorem",
+  "tags": [
+    "Mathematics",
+    "Geometry",
+    "Distance"
+  ],
+  "attribution": "Named after Pythagoras; known across ancient cultures",
+  "year": "Ancient",
+  "color": "sage",
+  "takeaway": "A right angle turns two component lengths into one direct distance.",
+  "illustration": "pythagorean-theorem",
+  "sections": {
+    "details": [
+      {
+        "id": "details-1",
+        "title": "Three lengths, one relationship",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Draw a triangle with a right angle. Call the two sides that meet at the right angle a and b, and the opposite, longest side c. In Euclidean geometry, their lengths satisfy a² + b² = c². The longest side is the hypotenuse."
+          },
+          {
+            "type": "paragraph",
+            "text": "For legs of length 3 and 4, the squared lengths are 9 and 16. Their sum is 25, so the hypotenuse has length 5. The relationship turns two perpendicular component lengths into a direct distance."
+          },
+          {
+            "type": "paragraph",
+            "text": "The theorem is named after Pythagoras, but the relationship was known across ancient cultures. Its usefulness is mathematical: within the stated conditions, the conclusion follows exactly rather than serving only as a useful approximation or habit of thought."
+          }
+        ]
+      },
+      {
+        "id": "details-2",
+        "title": "Think in areas",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Build a square outward from each side of the right triangle. The theorem says that the areas of the two squares on the legs add up to the area of the square on the hypotenuse. Thinking in areas makes sense of why the lengths are squared before they are added."
+          },
+          {
+            "type": "paragraph",
+            "text": "Euclid’s Elements, Book I, Proposition 47 gives a geometric proof using areas. The theorem has many presentations, but each must preserve the right-angle condition and the Euclidean setting. A striking drawing alone is not a substitute for those assumptions."
+          },
+          {
+            "type": "paragraph",
+            "text": "The converse also holds in Euclidean geometry. If the squared longest side of a triangle equals the sum of the squared other sides, the triangle is right-angled. The relationship can therefore establish a right angle as well as calculate a missing length."
+          }
+        ]
+      },
+      {
+        "id": "details-3",
+        "title": "From two directions to one distance",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Move three units in one direction and four perpendicularly on a flat diagram. The direct segment forms a right triangle’s hypotenuse and measures five units, rather than the seven travelled along the route."
+          },
+          {
+            "type": "paragraph",
+            "text": "The formula assumes Euclidean geometry, a right triangle, and consistent units. Curved spaces or other triangles need a different distance relationship."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Locate the right angle and hypotenuse.",
+              "Use the same units throughout.",
+              "Add squared lengths, then take the square root."
+            ]
+          }
+        ]
+      }
+    ],
+    "mental": [
+      {
+        "id": "mental-1",
+        "title": "Build a square on every side",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Picture three squares, one growing outward from each side of a right triangle. Combine the areas of the two smaller squares in your mind. Their total matches the area of the square on the hypotenuse. The image connects an equation about lengths to a relationship between areas."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Check that the triangle has a right angle.",
+              "Square the lengths of its two legs.",
+              "Add them and take the square root."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mental-2",
+        "title": "Check the setting before the formula",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A formula becomes dependable when its conditions are explicit. Before calculating, identify the right angle, the opposite side, the units, and the geometric setting. These small checks are part of using the theorem, not details outside it."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep in mind: the familiar formula assumes Euclidean geometry and a right triangle."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Which side lies opposite the right angle?",
+              "Are all three lengths in the same units?",
+              "Are you finding a direct distance or the length of a route?"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "Euclid · Elements, Book I, Proposition 47",
+      "url": "https://web.calstatela.edu/faculty/hmendel/Ancient%20Mathematics/Euclid/Euclid%20I/Euclid%201.47/Euclid.1.47.html"
+    }
+  ]
+}

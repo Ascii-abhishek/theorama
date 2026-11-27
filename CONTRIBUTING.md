@@ -1,67 +1,27 @@
 # Contributing to Theorama
 
-Theorama is a static field guide. Content and illustrations live in the repository; no database or account is needed to work on it.
+Run `npm run dev` to preview your changes. Run `npm run check` and `npm test` before opening a pull request.
 
-## Work locally
+## Add or edit an idea
 
-Use Node.js 20 or newer and Python 3. No dependency installation is required.
+- Add `content/ideas/<slug>/idea.json`. Start from an existing idea such as `content/ideas/butterfly-effect/idea.json`. The directory name matches the unique lowercase `id`. Keep published IDs stable for links and saved reading state.
+- Fill in the title, description, primary subject, tags, kind, attribution, year, color, and takeaway. Artwork is optional. The build calculates reading time, catalog data, related ideas, and search text.
+- Write the explanation in `sections.details` and the mental models in `sections.mental`. Each section has a stable ID, a title, and ordered blocks. Keep existing section IDs stable when editing so shared links and reading passages still resolve.
+- Use `paragraph` and `heading` blocks with `text`, `bullets` with `items`, and `diagram` with a built-in `name` of `divergence` or `concept`. An `illustration` block takes a built-in illustration ID and optional aspect ratio and caption.
+- An `image` block takes a raster path such as `media/example.png`, its integer pixel dimensions, descriptive alt text, and an optional caption. Store the file in the same idea directory. Keep each asset under 2 MB.
+- Use an `animation` block with the same fields, plus a separate still image in `poster`. Its `src` is an animated WebP or GIF. Give the poster and animation the same dimensions. Place the block where it belongs in the explanation and describe what changes in the caption. `scripts/generate-concept-media.py` can regenerate the example artwork with Pillow and DejaVu Sans.
+- Cite primary or authoritative HTTPS sources in `sources`, with a readable label for each one. Check that the explanation, mental model, attribution, citations, and images are accurate and original or properly licensed. Use typed blocks for all public prose and media.
 
-```sh
-git clone https://github.com/Ascii-abhishek/theorama.git
-cd theorama
-npm run dev
-```
+## Review agent-proposed content
 
-Open [the local preview](http://127.0.0.1:5173/). Run `npm run check` before submitting a pull request.
+- Have the agent open a pull request from its own branch. Limit its write permissions to proposing changes and keep credentials, deployment access, and branch protection out of its account. Scope its proposals to idea files and any referenced raster assets.
+- Require the content, build, and browser checks before merging. Review the proposal for near duplicates, factual errors, source relevance, and rights to any assets. Each merged idea should be ready for readers.
+- Preview drafts from their branch on a private or unindexed preview. Production builds should use reviewed main commits. A validation failure leaves the existing release available.
+- Deploy a completed `dist/` together so the article pages, search index, and sitemap describe one edition. The previous host deployment or the previous successful build artifact provides a rollback point.
 
-## Add or improve an idea
+## Change the interface
 
-1. Add or edit an entry in `data/ideas.json`. Give new entries a unique lowercase, hyphenated `id`. Preserve existing IDs because saved read status and article links use them.
-2. Add the matching entry in `data/chapters.json`, keyed by that ID. Include nonempty `details` and `mental` section arrays. The reader supplies the illustrated opening and calculates physical pages from the screen dimensions and text size.
-3. Each section needs a `title` and a nonempty `paragraphs` array, or ordered `blocks` as described below. Optional `bullets` contain short strings. Supported `diagram` values are `divergence` and `concept`.
-4. Add an original SVG drawing in `src/js/illustrations.js` if appropriate. Existing IDs can guide the illustration format.
-5. Run `npm run check`, then check the article in both a wide and narrow browser window. Test the book at the default and largest reading sizes.
-
-Write complete, concise explanations; do not manually pad or split text into fixed pages. Overflow continues onto new pages, with paragraphs split at word boundaries. Readable paragraphs, bullet numbers, source links, and content order are preserved. The reader keeps each diagram/illustration together and scales oversized art to fit a fresh page.
-
-## Editorial guidelines
-
-- Distinguish formal theorems, scientific theories, observed effects, and informal heuristics.
-- Write plain English first, explain technical terms, and state meaningful limits of an analogy.
-- Cite primary or authoritative sources with a clear label and HTTPS URL in `details.sources`. Sources follow the detail sections and are paginated with the rest of the text.
-- Write original summaries. Do not copy substantial passages, figures, or images without permission.
-- Treat diagrams as conceptual illustrations unless they are backed by a defined mathematical or scientific model.
-
-## Code changes
-
-`src/js/app.js` handles discovery, preferences, read status, and utility panes. `src/js/book.js` owns the book reader; `src/js/pagination.js` owns measured text flow and reading anchors. The locally vendored page-fold engine, its license, and provenance are in `src/vendor/page-flip/`. Preserve the documented lifecycle fixes when updating it. Styling lives in `src/styles/`; bundled fonts and their licenses live in `assets/fonts/`.
-
-Keep the site static and accessible. Preserve keyboard navigation, reduced-motion settings, and usable text at every reading size. Test search, filters, page turns, and read toggles when changing their behavior. Never commit local feedback drafts, credentials, or browser artifacts.
-
-## Interleave text and animated art
-
-Use an ordered `blocks` array when media should appear between paragraphs. When present, `blocks` replaces that section's legacy `paragraphs`, `bullets`, and `diagram` fields.
-
-```json
-{
-  "title": "Small changes, different paths",
-  "blocks": [
-    { "type": "paragraph", "text": "An explanation before the illustration." },
-    {
-      "type": "illustration",
-      "id": "butterfly-effect",
-      "aspectRatio": 1.2,
-      "caption": "A conceptual illustration."
-    },
-    { "type": "paragraph", "text": "The explanation continues here." },
-    { "type": "diagram", "name": "divergence" },
-    { "type": "bullets", "items": ["A useful point.", "Another useful point."] }
-  ]
-}
-```
-
-Supported block types are `paragraph`, `heading`, `bullets`, `diagram`, `illustration`, and `image`. Illustration IDs refer to drawings in `src/js/illustrations.js`; an optional positive `aspectRatio` reserves the frame (default 1.2). Diagram names are `divergence` and `concept`.
-
-An `image` block needs a repository-local `src` beginning with `assets/`, positive numeric `width` and `height`, and descriptive `alt` text. It may have a `caption`. SVG, GIF, or WebP animations can use this block. Keep dimensions stable: the reserved aspect ratio is measured before the asset loads. Animate inside that box rather than changing its size every frame, so the book does not continually repaginate. Large artwork scales to the page while preserving its proportions; captions can continue on the next page.
-
-Run `npm run check` to validate content, then visit [the browser pagination tests](http://127.0.0.1:5173/tests/pagination.html) through the local server. Test new art at small and large reading sizes in portrait and landscape. Check that all text remains present and that page turns still feel smooth.
+- Keep the public article and animated book based on the same idea schema. Put page-turn behavior behind the adapter and keep the reading position in terms of content passages.
+- Change shared theme palettes in the base stylesheet and feature layout in its own stylesheet. Verify keyboard focus, dark and light themes, mobile layouts, text resizing, and reduced motion.
+- Use the shared status banner for actionable failures and important confirmations. A failed enhancement should leave readable HTML and working links.
+- Keep notes revision-safe across tabs. Test save failures and backup recovery before changing storage or editor behavior.

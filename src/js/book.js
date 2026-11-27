@@ -1,147 +1,63 @@
 import { paginateBook, findAnchorPage } from "./pagination.js";
-import { PageFlip } from "../vendor/page-flip/page-flip.js";
+import { mountPageTurner } from "./page-turner.js";
 import { illustration } from "./illustrations.js";
-import { notesIcon } from "./notes.js";
+import { escapeHTML } from "./html.js";
+import { diagram } from "./article-art.js";
+import { SECTION_KINDS, readingMinutes, sectionAnchor, sourceURL } from "./content-model.js";
 
-const escapeHTML = (value) =>
-  String(value ?? "").replace(
-    /[&<>"']/g,
-    (char) =>
-      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
-        char
-      ],
-  );
+import { createReadingTools, styleReadingView } from "./reading-tools.js";
+import { mountSelectionNote } from "./selection-note.js";
+import { activateAnimations, stopAnimations, visualHTML } from "./idea-media.js";
+
 const arrow = (direction) =>
   `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="${direction === "previous" ? "m14 5-7 7 7 7M7 12h13" : "m10 5 7 7-7 7M17 12H4"}"/></svg>`;
 
-function fallbackChapter(idea) {
-  return {
-    details: [
-      {
-        title: idea.title,
-        paragraphs: [idea.overview.lead, ...idea.overview.paragraphs],
-      },
-      {
-        title: "How the idea works",
-        paragraphs: idea.details.paragraphs,
-        bullets: idea.details.bullets,
-        diagram: idea.id === "butterfly-effect" ? "divergence" : "concept",
-      },
-      {
-        title: "A useful perspective",
-        paragraphs: [
-          idea.mental.analogy,
-          idea.mental.caution,
-          idea.overview.takeaway,
-        ],
-        bullets: idea.details.bullets,
-      },
-    ],
-    mental: [
-      {
-        title: idea.mental.analogyTitle,
-        paragraphs: [idea.mental.analogy],
-        bullets: idea.mental.steps,
-      },
-      {
-        title: "A thought to take with you",
-        paragraphs: [idea.overview.takeaway],
-        bullets: [idea.mental.caution],
-      },
-    ],
-  };
-}
-
-function diagram(kind) {
-  if (kind === "divergence") {
-    return `<figure class="book-diagram"><svg viewBox="0 0 420 180" role="img" aria-label="Two similar starting points gradually diverge"><path d="M25 140h370M25 140V18" stroke="currentColor" opacity=".25"/><path class="book-trajectory" d="M25 86C74 87 83 44 123 56S161 130 207 107 258 28 297 48 347 125 393 43" stroke="var(--accent)"/><path class="book-trajectory book-trajectory-second" d="M25 89C74 89 84 50 124 62S167 143 210 119 258 92 292 117 349 59 393 129" stroke="currentColor"/><circle cx="25" cy="86" r="3" fill="var(--accent)"/><circle cx="25" cy="89" r="3" fill="currentColor"/><text x="25" y="165">NEARLY IDENTICAL STARTS</text><text x="312" y="165">TIME</text></svg><figcaption>A conceptual illustration of sensitivity, rather than a scientific simulation.</figcaption></figure>`;
-  }
-  return `<figure class="book-diagram"><svg viewBox="0 0 420 100" role="img" aria-label="Notice, question, understand"><g fill="none" stroke="currentColor"><rect x="5" y="22" width="115" height="56" rx="5"/><path d="M120 50h25m130 0h25"/><rect x="145" y="22" width="130" height="56" rx="5"/><rect x="300" y="22" width="115" height="56" rx="5"/></g><g text-anchor="middle"><text x="62" y="54">NOTICE</text><text x="210" y="54">QUESTION</text><text x="357" y="54">UNDERSTAND</text></g></svg></figure>`;
-}
-
 export function createBookReader({
+  overlays,
+  onPosition = () => {},
+  onError = () => {},
   onComplete = () => {},
   onClose = () => {},
+  onReadText = () => {},
   onNotes = () => {},
+  onSettings = () => {},
+  onRead = () => {},
+  onAppearance = () => {},
+  speech,
 } = {}) {
   const mount = document.getElementById("book-root");
-  if (!mount) throw new Error("The book reader requires #book-root.");
-  mount.innerHTML = `<div class="book-overlay" role="dialog" aria-modal="true" aria-labelledby="book-dialog-title" tabindex="-1" hidden><h2 class="sr-only" id="book-dialog-title"></h2><div class="book-stage"><button class="book-tool book-notes" aria-label="Your notes" title="Your notes" aria-controls="drawer" aria-haspopup="dialog">${notesIcon}</button><div class="book-tools" role="group" aria-label="Book appearance"><button class="book-tool book-theme" aria-label="Cycle book theme" title="Cycle book theme"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16Z" fill="currentColor" opacity=".65"/></svg></button><div class="book-text-tools" role="group" aria-label="Book text size"><button class="book-tool book-text-smaller" aria-label="Decrease book text size" title="Decrease book text size"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12"/></svg></button><output class="book-text-value" aria-label="Book text size">17</output><button class="book-tool book-text-larger" aria-label="Increase book text size" title="Increase book text size"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><button class="book-tool book-focus" aria-label="Cycle book background" title="Cycle book background"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4"/><circle cx="12" cy="12" r="3"/></svg></button><button class="book-tool book-close" aria-label="Close book" title="Close book"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div><div class="book-spread"><div class="book-leaves"></div><button class="book-turn book-previous" aria-label="Previous page" title="Previous page">${arrow("previous")}</button><button class="book-turn book-next" aria-label="Next page" title="Next page">${arrow("next")}</button></div><p class="sr-only book-announcement" role="status" aria-live="polite"></p><p class="sr-only book-settings-announcement" role="status" aria-live="polite"></p></div></div>`;
+  if (!mount || !overlays || !window.ResizeObserver) throw new Error("The animated reader is unavailable.");
+  mount.innerHTML = `<div class="book-overlay" role="dialog" aria-modal="true" aria-labelledby="book-dialog-title" tabindex="-1" hidden><h2 class="sr-only book-dialog-title" id="book-dialog-title"></h2><div class="book-stage"><div class="book-spread"><div class="book-leaves"></div><button class="book-turn book-previous" aria-label="Previous page" title="Previous page">${arrow("previous")}</button><button class="book-turn book-next" aria-label="Next page" title="Next page">${arrow("next")}</button></div><p class="sr-only book-announcement" role="status" aria-live="polite"></p></div></div>`;
   const overlay = mount.querySelector(".book-overlay");
-  const selectionButton = document.createElement("button");
-  selectionButton.className = "book-selection-note";
-  selectionButton.setAttribute("aria-label", "Add selected text to notes");
-  selectionButton.title = "Add selected text to notes";
-  selectionButton.innerHTML = notesIcon;
-  selectionButton.hidden = true;
-  overlay.append(selectionButton);
-  let selectionTimer, selectedExcerpt = null;
-  function hideSelectionNote() {
-    clearTimeout(selectionTimer);
-    selectionButton.hidden = true;
-    selectedExcerpt = null;
-  }
-  function selectionNote() {
-    hideSelectionNote();
-    if (overlay.hidden || overlay.inert) return;
-    selectionTimer = setTimeout(() => {
-      const selection = window.getSelection();
-      if (overlay.inert || !selection?.rangeCount || selection.isCollapsed) return;
-      const range = selection.getRangeAt(0);
-      const start = range.startContainer.parentElement?.closest(".book-page-scroll");
-      const end = range.endContainer.parentElement?.closest(".book-page-scroll");
-      if (!start || !end || !spread.contains(start) || !spread.contains(end) || start.closest("[inert]") || end.closest("[inert]")) return;
-      const text = selection.toString().trim();
-      if (!text) return;
-      const rect = [...range.getClientRects()].find((r) => r.width && r.height);
-      if (!rect) return;
-      selectedExcerpt = { text, title: article.title };
-      selectionButton.style.left = `${Math.max(8, Math.min(innerWidth - 48, rect.left + rect.width / 2 - 20))}px`;
-      selectionButton.style.top = `${Math.max(8, rect.top - 46)}px`;
-      selectionButton.hidden = false;
-    }, 200);
-  }
-  document.addEventListener("selectionchange", selectionNote);
-  overlay.addEventListener("scroll", hideSelectionNote, true);
-  window.addEventListener("resize", hideSelectionNote);
-  selectionButton.addEventListener("pointerdown", (event) => event.preventDefault());
-  selectionButton.addEventListener("click", () => {
-    const excerpt = selectedExcerpt;
-    hideSelectionNote();
-    window.getSelection()?.removeAllRanges();
-    if (excerpt) { mount.querySelector(".book-notes").focus({ preventScroll: true }); onNotes(excerpt); }
-  });
-  mount.querySelector(".book-notes").addEventListener("click", () => { hideSelectionNote(); onNotes(); });
   const stage = mount.querySelector(".book-stage");
   const spread = mount.querySelector(".book-spread");
   let leaves = mount.querySelector(".book-leaves");
-  const closeButton = mount.querySelector(".book-close");
-  const themeButton = mount.querySelector(".book-theme");
-  const smallerButton = mount.querySelector(".book-text-smaller");
-  const largerButton = mount.querySelector(".book-text-larger");
-  const sizeOutput = mount.querySelector(".book-text-value");
-  const focusButton = mount.querySelector(".book-focus");
-  const bookThemes = ["paper", "dusk", "rose"];
-  const themeNames = { paper: "Paper", dusk: "After hours", rose: "Rosewater" };
-  const backgrounds = ["blur", "dark", "clear"];
-  const backgroundNames = {
-    blur: "Blurred",
-    dark: "Dark focus",
-    clear: "Clear",
-  };
-  // Reader settings are session-local overrides, never site preferences.
-  let bookTheme = null;
-  let bookTextSize = null;
-  let bookBackground = "blur";
+  let settings;
+  const tools = createReadingTools({
+    mode: "book", onChange: onSettings, onClose: close, onNotes: openNotes, onRead, speech, onAppearance,
+  });
+  overlay.append(tools.element);
+  const selection = mountSelectionNote({
+    scope: spread, mount: overlay,
+    isActive: () => Boolean(article && !overlay.hidden && !overlay.inert && engine?.idle()),
+    title: () => article.title,
+    onNote: (excerpt) => openNotes(excerpt),
+  });
+
+  function openNotes(excerpt) {
+    selection.clear();
+    if (excerpt) tools.focusNotes();
+    onNotes(excerpt, { theme: settings.theme });
+  }
   const previousButton = mount.querySelector(".book-previous");
   const nextButton = mount.querySelector(".book-next");
   const media = window.matchMedia("(max-width: 899px)");
   let article = null;
-  let chapter = null;
+  let minutes = 0;
+  let assetBase = "";
   let pageIndex = 0;
-  let previousFocus = null;
-  let previousOverflow = "";
-  let backgroundState = [];
+  let initialAnchor = null;
+  let lastPosition = "";
   let engine = null;
   let pageElements = [];
   let queuedTurn = 0;
@@ -154,50 +70,14 @@ export function createBookReader({
   let layoutPages = [];
   let layoutFrame = 0;
 
-  function syncBookSettings(message = "") {
-    overlay.dataset.bookTheme = bookTheme;
-    overlay.dataset.focusMode = bookBackground;
-    overlay.style.setProperty("--reading-size", `${bookTextSize}px`);
-    sizeOutput.value = `${bookTextSize}`;
-    sizeOutput.title = `${bookTextSize}px · book text only`;
-    smallerButton.disabled = bookTextSize <= 15;
-    largerButton.disabled = bookTextSize >= 24;
-    const nextTheme =
-      bookThemes[(bookThemes.indexOf(bookTheme) + 1) % bookThemes.length];
-    themeButton.title = `Book theme: ${themeNames[bookTheme]}. Switch to ${themeNames[nextTheme]}`;
-    themeButton.setAttribute("aria-label", themeButton.title);
-    const nextBackground =
-      backgrounds[
-        (backgrounds.indexOf(bookBackground) + 1) % backgrounds.length
-      ];
-    focusButton.title = `Book background: ${backgroundNames[bookBackground]}. Switch to ${backgroundNames[nextBackground]}`;
-    focusButton.setAttribute("aria-label", focusButton.title);
-    focusButton.dataset.mode = bookBackground;
-    mount.querySelector(".book-settings-announcement").textContent = message;
+  function setSettings(next) {
+    const reflow = settings && (settings.size !== next.size || settings.font !== next.font);
+    settings = next;
+    styleReadingView(overlay, settings);
+    overlay.dataset.bookTheme = settings.theme;
+    tools.sync(settings);
+    if (reflow) scheduleLayout();
   }
-
-  themeButton.addEventListener("click", () => {
-    bookTheme =
-      bookThemes[(bookThemes.indexOf(bookTheme) + 1) % bookThemes.length];
-    syncBookSettings(`Book theme: ${themeNames[bookTheme]}`);
-  });
-  function resizeText(step) {
-    bookTextSize = Math.max(15, Math.min(24, bookTextSize + step));
-    syncBookSettings(`Book text: ${bookTextSize} pixels`);
-    scheduleLayout();
-    // Keep keyboard focus in the size controls when a limit is reached.
-    if (document.activeElement.disabled)
-      (step > 0 ? smallerButton : largerButton).focus();
-  }
-  smallerButton.addEventListener("click", () => resizeText(-1));
-  largerButton.addEventListener("click", () => resizeText(1));
-  focusButton.addEventListener("click", () => {
-    bookBackground =
-      backgrounds[
-        (backgrounds.indexOf(bookBackground) + 1) % backgrounds.length
-      ];
-    syncBookSettings(`Book background: ${backgroundNames[bookBackground]}`);
-  });
 
   function reducedMotion() {
     return (
@@ -281,111 +161,49 @@ export function createBookReader({
             block.caption,
           );
           break;
-        case "image": {
-          // Repository-local assets only. Explicit dimensions reserve the layout
-          // before loading; GIF/WebP/SVG animation never changes pagination.
-          if (
-            !/^assets\//.test(block.src) ||
-            block.src.split("/").includes("..")
-          )
-            throw new Error("Book images must be inside assets/.");
-          const url = new URL(`../../${block.src}`, import.meta.url);
-          const width = Number(block.width),
-            height = Number(block.height);
-          if (!(width > 0 && height > 0))
-            throw new Error("Book images need dimensions.");
+        case "image":
+        case "animation":
           addMedia(
             id,
             kind,
-            `<figure class="book-inline-art"><div class="book-media-frame" data-book-media style="aspect-ratio:${width / height}"><img src="${escapeHTML(url.href)}" width="${width}" height="${height}" alt="${escapeHTML(block.alt || "")}" decoding="async"></div></figure>`,
+            `<figure class="book-inline-art"><div class="book-media-frame" data-book-media style="aspect-ratio:${block.width / block.height}">${visualHTML(block, assetBase)}</div></figure>`,
             block.caption,
           );
           break;
-        }
       }
     };
 
-    addText(
-      "cover-category",
-      "cover",
-      article.category,
-      "p",
-      "book-front-category",
-    );
-    addMedia(
-      "cover-art",
-      "cover",
-      `<div class="book-artwork" data-book-media>${illustration(article.id, "book-illustration")}</div>`,
-    );
-    addText("cover-title", "cover", article.title, "h3", "", {
-      keepNext: true,
+    const coverLine = (tag, id, className, value) =>
+      `<${tag} class="${className}" data-flow-id="${id}" data-flow-start="0" data-flow-end="${value.length}" data-flow-text>${escapeHTML(value)}</${tag}>`;
+    blocks.push({
+      id: "cover",
+      kind: "cover",
+      allowScroll: true,
+      create: () => element(`<div class="book-cover">
+        ${coverLine("p", "cover-category", "book-front-category", `${article.category} · ${article.kind}`)}
+        <div class="book-artwork">${illustration(article.illustration, "book-illustration")}</div>
+        ${coverLine("h3", "cover-title", "", article.title)}
+        ${coverLine("p", "cover-description", "book-front-description", article.description)}
+        ${coverLine("p", "cover-takeaway", "book-front-description", article.takeaway)}
+        ${coverLine("p", "cover-author", "book-front-author", `${article.attribution} · ${article.year} · ${minutes} min read`)}
+      </div>`),
     });
-    addText(
-      "cover-takeaway",
-      "cover",
-      article.overview.takeaway,
-      "p",
-      "book-front-description",
-    );
-    addText(
-      "cover-author",
-      "cover",
-      `${article.attribution} · ${article.year}`,
-      "p",
-      "book-front-author",
-    );
-    for (const kind of ["details", "mental"]) {
-      chapter[kind].forEach((section, index) => {
-        const id = `${kind}-${index}`;
-        if (kind === "mental")
-          addText(
-            `${id}-label`,
-            kind,
-            "MENTAL MODEL",
-            "p",
-            "book-section-label",
-            { keepNext: true },
-          );
-        addText(`${id}-title`, kind, section.title, "h3", "", {
-          keepNext: true,
-        });
-        if (section.blocks)
-          section.blocks.forEach((block, i) =>
-            addOrderedBlock(`${id}-block-${i}`, kind, block),
-          );
-        else {
-          (section.paragraphs || []).forEach((text, i) =>
-            addText(`${id}-paragraph-${i}`, kind, text),
-          );
-          if (section.diagram)
-            addDiagram(`${id}-diagram`, kind, section.diagram);
-          if (section.bullets)
-            addBullets(`${id}-bullet`, kind, section.bullets);
-        }
+    for (const kind of SECTION_KINDS) {
+      article.sections[kind].forEach((section) => {
+        const id = sectionAnchor(section.id);
+        addText(`${id}-title`, kind, section.title, "h3", "", { keepNext: true });
+        section.blocks.forEach((block, index) => addOrderedBlock(`${id}-block-${index}`, kind, block));
       });
-      if (kind === "details" && article.details.sources?.length) {
-        addText(
-          "sources-title",
-          kind,
-          "Further reading",
-          "h4",
-          "book-source-heading",
-          { keepNext: true },
-        );
-        article.details.sources
-          .filter((source) => /^https:\/\//.test(source.url))
-          .forEach((source, index) => {
-            blocks.push({
-              id: `source-${index}`,
-              kind,
-              text: source.label,
-              create: () =>
-                element(
-                  `<a class="book-source-link" data-flow-text href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer"></a>`,
-                ),
-            });
-          });
-      }
+    }
+    if (article.sources.length) {
+      const links = article.sources.flatMap((source) => {
+        const href = sourceURL(source.url);
+        return href ? [`<li><a class="book-source-link" href="${escapeHTML(href)}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.label)}</a></li>`] : [];
+      });
+      blocks.push({
+        id: "sources-title", kind: "sources", allowScroll: true,
+        create: () => element(`<section class="book-references"><h3>References</h3><ol>${links.join("")}</ol></section>`),
+      });
     }
     return blocks;
   }
@@ -405,12 +223,20 @@ export function createBookReader({
       : null;
   }
 
+  function recoverLayout() {
+    try { buildEngine(); }
+    catch {
+      close({ notify: false });
+      onError();
+    }
+  }
+
   function scheduleLayout() {
     if (overlay.hidden) return;
     overlay.dataset.layoutPending = "true";
     cancelAnimationFrame(layoutFrame);
     layoutFrame = requestAnimationFrame(() => {
-      if (!overlay.hidden) buildEngine();
+      if (!overlay.hidden) recoverLayout();
     });
   }
 
@@ -420,8 +246,7 @@ export function createBookReader({
       overlay.hidden ||
       completionReported ||
       overlay.dataset.layoutPending === "true" ||
-      !engine ||
-      engine.getState() !== "read"
+      !engine?.idle()
     )
       return;
     const lastIndex = layoutPages.length - 1;
@@ -442,6 +267,8 @@ export function createBookReader({
         index < pageIndex + count;
       page.inert = !visible;
       page.setAttribute("aria-hidden", String(!visible));
+      if (visible) activateAnimations(page);
+      else stopAnimations(page);
     });
     previousButton.disabled = pageIndex === 0;
     nextButton.disabled = pageIndex + count >= layoutPages.length;
@@ -460,14 +287,25 @@ export function createBookReader({
       `${article.title}. ${count === 1 || pageIndex + 1 === layoutPages.length ? `Page ${pageIndex + 1}` : `Pages ${pageIndex + 1} and ${Math.min(pageIndex + 2, layoutPages.length)}`} of ${layoutPages.length}.`;
     // Never leave keyboard focus on a page which just became inert.
     if (document.activeElement.closest?.(".book-page[inert]"))
-      closeButton.focus({ preventScroll: true });
+      tools.focusTarget().focus({ preventScroll: true });
+    if (engine?.idle()) {
+      const anchor = currentAnchor();
+      const position = anchor ? `${anchor.id}:${anchor.offset}` : "";
+      if (anchor && position !== lastPosition) {
+        lastPosition = position;
+        onPosition(anchor);
+      }
+    }
     checkCompletion();
   }
 
   function destroyEngine() {
     cancelAnimationFrame(inputFrame);
+    inputFrame = 0;
     queuedTurn = 0;
+    const pointerId = pointer?.id;
     pointer = null;
+    if (pointerId !== undefined && spread.hasPointerCapture(pointerId)) spread.releasePointerCapture(pointerId);
     spread.classList.remove("book-is-dragging");
     copyObserver?.disconnect();
     copyObserver = null;
@@ -480,13 +318,15 @@ export function createBookReader({
   }
 
   function buildEngine() {
-    const anchor = currentAnchor();
+    const anchor = currentAnchor() ?? initialAnchor;
+    initialAnchor = null;
     const fallbackIndex = pageIndex;
     cancelAnimationFrame(layoutFrame);
     overlay.dataset.layoutPending = "true";
     destroyEngine();
     const width = spread.clientWidth;
     const height = spread.clientHeight;
+    if (width < 220 || height < 180) throw new Error("The animated reader needs a larger viewport.");
     const pageWidth = media.matches ? width : width / 2;
     engineSize = `${width}:${height}:${media.matches}`;
     // The offscreen page uses precisely the same width, padding, typography,
@@ -509,6 +349,7 @@ export function createBookReader({
     leaves.innerHTML = layoutPages
       .map((page, index) => pageHTML(page, index, layoutPages.length))
       .join("");
+    activateAnimations(leaves);
     pageElements = [...leaves.children];
     pageIndex = findAnchorPage(pageElements, anchor, fallbackIndex);
     if (!media.matches) pageIndex = Math.floor(pageIndex / 2) * 2;
@@ -527,32 +368,15 @@ export function createBookReader({
       leaves.append(blank);
       pageElements.push(blank);
     }
-    const reader = new PageFlip(leaves, {
-      width: media.matches ? width : width / 2,
-      height,
-      size: "fixed",
-      autoSize: false,
-      usePortrait: media.matches,
-      showCover: false,
-      startPage: pageIndex,
-      flippingTime: 580,
-      drawShadow: true,
-      maxShadowOpacity: 0.22,
-      useMouseEvents: false,
-      showPageCorners: false,
-      mobileScrollSupport: false,
-    });
-    engine = reader;
-    reader.on("flip", (event) => {
-      if (engine !== reader) return;
-      pageIndex = event.data;
-      syncPages();
-    });
-    reader.on("changeState", (event) => {
-      if (engine !== reader) return;
-      overlay.dataset.state = event.data;
-      if (event.data === "read") {
-        requestAnimationFrame(() => {
+    const reader = mountPageTurner({
+      host: leaves, pages: pageElements, width: pageWidth, height, single: media.matches, startPage: pageIndex,
+      onPage(index) {
+        pageIndex = index;
+        if (engine) syncPages();
+      },
+      onState(state) {
+        overlay.dataset.state = state;
+        if (state === "read") requestAnimationFrame(() => {
           if (engine !== reader || overlay.hidden) return;
           syncPages();
           if (queuedTurn) {
@@ -561,9 +385,9 @@ export function createBookReader({
             turn(direction);
           }
         });
-      }
+      },
     });
-    reader.loadFromHTML(pageElements);
+    engine = reader;
     overlay.dataset.layoutPending = "false";
     // Portrait folds use a decorative copy of the outgoing page. Keep it out
     // of the accessibility tree.
@@ -578,147 +402,72 @@ export function createBookReader({
             continue;
           node.inert = true;
           node.setAttribute("aria-hidden", "true");
-          const original = pageElements[Number(node.dataset.pageIndex)];
-          if (original)
-            node.querySelector(".book-page-scroll").scrollTop =
-              original.querySelector(".book-page-scroll").scrollTop;
+          node.classList.add("book-fold-back");
         }
     });
     copyObserver.observe(leaves, { childList: true, subtree: true });
     syncPages();
   }
 
+  function canTurn(direction) {
+    const target = pageIndex + direction * (media.matches ? 1 : 2);
+    return target >= 0 && target < layoutPages.length;
+  }
+
   function turn(direction) {
-    hideSelectionNote();
+    selection.clear();
     if (overlay.hidden || !engine) return;
-    if (engine.getState() !== "read") {
+    if (!engine.idle()) {
       queuedTurn = direction; // One pending intention, rather than dropped clicks.
       return;
     }
     const target = pageIndex + direction * (media.matches ? 1 : 2);
-    if (target < 0 || target >= layoutPages.length) return;
-    if (reducedMotion()) engine.turnToPage(target);
-    else if (direction > 0) engine.flipNext("bottom");
-    else engine.flipPrev("bottom");
+    if (!canTurn(direction)) return;
+    if (reducedMotion()) engine.show(target);
+    else engine.flip(direction);
   }
 
-  function close(options = {}) {
+  function close({ notify = true } = {}) {
     if (overlay.hidden) return;
-    hideSelectionNote();
-    const notify =
-      typeof options === "boolean" ? options : options.notify !== false;
-    // Preserve completion even when the reader closes immediately after landing.
+    selection.clear();
     checkCompletion();
     cancelAnimationFrame(resizeFrame);
     cancelAnimationFrame(layoutFrame);
     destroyEngine();
-    overlay.hidden = true;
-    document.body.style.overflow = previousOverflow;
-    backgroundState.forEach(([element, value]) => {
-      element.inert = value;
-    });
-    backgroundState = [];
-    if (previousFocus?.isConnected && !previousFocus.closest("[inert]"))
-      previousFocus.focus({ preventScroll: true });
-    else
-      document.getElementById("search-toggle")?.focus({ preventScroll: true });
+    overlays.hide(overlay);
+    layoutPages = [];
+    article = null;
     if (notify) onClose();
   }
 
-  function open(idea, suppliedChapter) {
-    if (overlay.hidden) {
-      previousFocus = document.activeElement;
-      previousOverflow = document.body.style.overflow;
-      backgroundState = [
-        ...document.querySelectorAll(".site-header,.site-main,.skip-link"),
-      ].map((element) => [element, element.inert]);
-      backgroundState.forEach(([element]) => {
-        element.inert = true;
-      });
-    }
+  function open(idea, { assetBase: mediaBase, anchor, returnFocus } = {}) {
     destroyEngine();
     article = idea;
-    const fallback = fallbackChapter(idea);
-    chapter = {
-      details:
-        suppliedChapter?.details?.length > 0
-          ? suppliedChapter.details
-          : fallback.details,
-      mental:
-        suppliedChapter?.mental?.length > 0
-          ? suppliedChapter.mental
-          : fallback.mental,
-    };
+    minutes = readingMinutes(idea);
+    assetBase = mediaBase;
+    initialAnchor = anchor;
+    lastPosition = "";
     pageIndex = 0;
     completionReported = false;
     mount.querySelector("#book-dialog-title").textContent = idea.title;
-    if (bookTheme === null) {
-      const siteTheme = document.documentElement.dataset.theme;
-      bookTheme = bookThemes.includes(siteTheme) ? siteTheme : "paper";
+    tools.reset();
+    overlays.show(overlay, { close: () => {}, initialFocus: overlay, returnFocus });
+    try { buildEngine(); }
+    catch (error) {
+      close({ notify: false });
+      throw error;
     }
-    if (bookTextSize === null)
-      bookTextSize = Math.max(
-        15,
-        Math.min(
-          24,
-          parseFloat(
-            getComputedStyle(overlay).getPropertyValue("--reading-size"),
-          ) || 17,
-        ),
-      );
-    syncBookSettings();
-    overlay.hidden = false;
-    document.body.style.overflow = "hidden";
-    buildEngine();
-    closeButton.focus({ preventScroll: true });
   }
 
-  closeButton.addEventListener("click", close);
   previousButton.addEventListener("click", () => turn(-1));
   nextButton.addEventListener("click", () => turn(1));
-  overlay.addEventListener("click", (event) => {
-    if (event.target === overlay) close();
+  overlay.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || overlay.inert) return;
+    if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+      event.preventDefault();
+      turn(event.key === "ArrowRight" ? 1 : -1);
+    }
   });
-  document.addEventListener(
-    "keydown",
-    (event) => {
-      if (overlay.hidden || overlay.inert) return;
-      if (event.key === "Escape") {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        close();
-        return;
-      }
-      if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        turn(event.key === "ArrowRight" ? 1 : -1);
-        return;
-      }
-      if (event.key !== "Tab") return;
-      const focusable = [
-        ...overlay.querySelectorAll(
-          'button:not([disabled]),a[href],[tabindex="0"]',
-        ),
-      ].filter(
-        (element) =>
-          element.getClientRects().length && !element.closest("[inert]"),
-      );
-      const first = focusable[0],
-        last = focusable[focusable.length - 1];
-      if (!overlay.contains(document.activeElement)) {
-        event.preventDefault();
-        first.focus();
-      } else if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    },
-    true,
-  );
   function localPoint(event, bounds) {
     return { x: event.clientX - bounds.left, y: event.clientY - bounds.top };
   }
@@ -727,7 +476,7 @@ export function createBookReader({
     if (
       !engine ||
       pointer ||
-      engine.getState() !== "read" ||
+      !engine.idle() ||
       event.button !== 0 ||
       event.target.closest("button,a")
     )
@@ -735,12 +484,12 @@ export function createBookReader({
     const bounds = leaves.getBoundingClientRect();
     const x = event.clientX - bounds.left;
     const edge = Math.min(72, bounds.width * 0.16);
-    if (event.pointerType === "mouse" && x > edge && x < bounds.width - edge)
-      return;
-    const direction = x < (media.matches ? edge : bounds.width / 2) ? -1 : 1;
-    const target = pageIndex + direction * (media.matches ? 1 : 2);
-    if (target < 0 || target >= layoutPages.length) return;
-    hideSelectionNote();
+    const atEdge = x <= edge || x >= bounds.width - edge;
+    const mouse = event.pointerType === "mouse";
+    if (mouse && !atEdge) return;
+    const direction = x < bounds.width / 2 ? -1 : 1;
+    if (mouse && !canTurn(direction)) return;
+    selection.clear();
     pointer = {
       started: performance.now(),
       id: event.pointerId,
@@ -748,6 +497,8 @@ export function createBookReader({
       start: localPoint(event, bounds),
       latest: localPoint(event, bounds),
       direction,
+      mouse,
+      atEdge,
       dragging: false,
     };
   });
@@ -764,7 +515,7 @@ export function createBookReader({
   function drawDrag() {
     inputFrame = 0;
     if (pointer?.dragging && engine)
-      engine.userMove(foldPoint(pointer.latest, pointer), true);
+      engine.moveDrag(foldPoint(pointer.latest, pointer));
   }
 
   spread.addEventListener("pointermove", (event) => {
@@ -784,15 +535,17 @@ export function createBookReader({
         return;
       }
       if (Math.abs(dx) < 6 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
-      if (dx * pointer.direction > 0) {
+      const direction = dx < 0 ? 1 : -1;
+      if ((pointer.mouse && pointer.direction !== direction) || !canTurn(direction)) {
         pointer = null;
         return;
       }
+      pointer.direction = direction;
       pointer.dragging = true;
       spread.setPointerCapture(event.pointerId);
       window.getSelection()?.removeAllRanges();
       spread.classList.add("book-is-dragging");
-      if (!reducedMotion()) engine.startUserTouch(pointer.start);
+      if (!reducedMotion()) engine.startDrag(pointer.start);
     }
     pointer.latest = point;
     if (event.cancelable) event.preventDefault();
@@ -811,7 +564,7 @@ export function createBookReader({
       spread.releasePointerCapture(event.pointerId);
     if (!engine) return;
     if (!gesture.dragging) {
-      if (!cancelled && performance.now() - gesture.started < 250 && window.getSelection()?.isCollapsed) turn(gesture.direction);
+      if (gesture.atEdge && !cancelled && performance.now() - gesture.started < 250 && window.getSelection()?.isCollapsed) turn(gesture.direction);
       return;
     }
     if (reducedMotion()) {
@@ -822,8 +575,8 @@ export function createBookReader({
     // Finish from the actual fold position, or ease back to the starting edge.
     const point = cancelled ? gesture.start : localPoint(event, gesture.bounds);
     const fold = foldPoint(point, gesture);
-    engine.userMove(fold, true);
-    engine.userStop(fold);
+    engine.moveDrag(fold);
+    engine.endDrag(fold);
   }
   spread.addEventListener("pointerup", (event) => endPointer(event));
   spread.addEventListener("pointercancel", (event) => endPointer(event, true));
@@ -840,10 +593,10 @@ export function createBookReader({
         engineSize !==
           `${spread.clientWidth}:${spread.clientHeight}:${media.matches}`
       )
-        buildEngine();
+        recoverLayout();
     });
   });
   resizeObserver.observe(stage);
   document.fonts?.addEventListener("loadingdone", scheduleLayout);
-  return { open, close, isOpen: () => !overlay.hidden };
+  return { open, close, setSettings, setRead: tools.syncRead, readText: () => onReadText(currentAnchor()), isOpen: () => !overlay.hidden };
 }

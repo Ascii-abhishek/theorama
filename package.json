@@ -2,11 +2,15 @@
   "name": "theorama",
   "version": "0.1.0",
   "private": true,
-  "description": "A local, interactive design prototype for Theorama.",
+  "description": "A static field guide to big ideas, with an optional animated reader.",
   "type": "module",
   "scripts": {
-    "dev": "python3 -m http.server 5173 --bind 127.0.0.1",
-    "check": "node scripts/check.mjs"
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "build:production": "node scripts/build.mjs --production",
+    "check": "node scripts/check.mjs",
+    "test": "node --test tests/build.test.mjs",
+    "test:browser": "node tests/browser.mjs"
   },
   "engines": {
     "node": ">=20"

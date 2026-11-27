@@ -1,0 +1,127 @@
+{
+  "id": "occams-razor",
+  "title": "Occam's Razor",
+  "description": "When explanations fit equally well, begin with fewer assumptions.",
+  "category": "Everyday life",
+  "kind": "Principle",
+  "tags": [
+    "Everyday life",
+    "Reasoning",
+    "Simplicity"
+  ],
+  "attribution": "Associated with William of Ockham",
+  "year": "14th century",
+  "color": "sage",
+  "takeaway": "Simplify the explanation while keeping all the evidence.",
+  "illustration": "occams-razor",
+  "sections": {
+    "details": [
+      {
+        "id": "details-1",
+        "title": "Fewer assumptions, the same evidence",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "When several explanations fit an observation, it is tempting to choose the most satisfying story. Occam’s Razor suggests a more disciplined comparison: when the explanatory work is otherwise equal, prefer an account that needs fewer unsupported assumptions."
+          },
+          {
+            "type": "paragraph",
+            "text": "The principle is associated with William of Ockham, although ideas of parsimony predate him and modern versions differ from his historical uses. It is a guide to inquiry and theory choice, not a proof that a simple explanation must be true."
+          },
+          {
+            "type": "paragraph",
+            "text": "The essential condition is that the explanations still account for the evidence. Removing a complication by ignoring an observation is not economy. It is a change in the question being answered."
+          }
+        ]
+      },
+      {
+        "id": "details-2",
+        "title": "What counts as simple?",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "An explanation can be simple in more than one way. It might propose fewer kinds of things, rely on fewer independent principles, or use a less elaborate structure. These kinds of simplicity can conflict. A shorter sentence can even conceal more assumptions than a longer, careful explanation."
+          },
+          {
+            "type": "paragraph",
+            "text": "Before applying the razor, name what you are trying to simplify. Compare what each account assumes, what each predicts, and which observations each can explain. The fewer-assumptions preference only becomes useful once those comparisons are visible."
+          },
+          {
+            "type": "paragraph",
+            "text": "This is why familiar is not the same as simple, and simple is not the same as correct. A new explanation may feel strange while accounting economically for evidence that an older, familiar story leaves unexplained."
+          }
+        ]
+      },
+      {
+        "id": "details-3",
+        "title": "A small mystery, kept small",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Imagine a desk lamp that will not turn on. Checking whether it is unplugged offers an economical explanation and an immediate test. A chain of unrelated failures requires more unsupported assumptions."
+          },
+          {
+            "type": "paragraph",
+            "text": "If the lamp is already plugged in, revise the account. Simplicity guides investigation; it never licenses ignoring an observation to protect a tidy story."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Other things being equal is essential.",
+              "Evidence outranks an elegant explanation.",
+              "Use simplicity to choose a test, not avoid one."
+            ]
+          }
+        ]
+      }
+    ],
+    "mental": [
+      {
+        "id": "mental-1",
+        "title": "Pack only what the trip needs",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Treat assumptions like things in a backpack. Every item adds weight and should earn its place. Remove what is unnecessary, but do not throw away the equipment required for the actual journey. The destination is an explanation that still fits the observations."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "List the observations to explain.",
+              "Compare the assumptions each account needs.",
+              "Test the strongest economical account."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mental-2",
+        "title": "Leave room for surprise",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A tidy story is pleasant to hold in mind. That feeling is not evidence. Ask what observation would make you abandon the story, and whether your preferred account explains the difficult details as well as the easy ones."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep in mind: simple does not mean familiar, effortless to describe, or correct."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "What assumption is doing unnecessary work?",
+              "What evidence must every explanation preserve?",
+              "What result would justify a more complex account?"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "Stanford Encyclopedia of Philosophy · Simplicity",
+      "url": "https://plato.stanford.edu/entries/simplicity/"
+    }
+  ]
+}

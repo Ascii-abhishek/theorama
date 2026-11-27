@@ -1,0 +1,131 @@
+{
+  "id": "godel-incompleteness",
+  "title": "Gödel's Incompleteness",
+  "description": "Powerful formal rulebooks have limits to what they can prove.",
+  "category": "Mathematics",
+  "kind": "Theorem",
+  "tags": [
+    "Mathematics",
+    "Computer science",
+    "Logic"
+  ],
+  "attribution": "Kurt Gödel",
+  "year": "1931",
+  "color": "yellow",
+  "takeaway": "Truth and provability inside one rulebook are different notions.",
+  "illustration": "godel-incompleteness",
+  "sections": {
+    "details": [
+      {
+        "id": "details-1",
+        "title": "The limits of a formal rulebook",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A formal system begins with axioms and exact rules for deriving statements from them. In such a system, a proof is not simply a persuasive explanation. It is a derivation that follows the specified rules. This precision makes it possible to ask rigorous questions about proof itself."
+          },
+          {
+            "type": "paragraph",
+            "text": "Gödel’s incompleteness results reveal a limitation for effectively specified, consistent systems capable of expressing enough elementary arithmetic. A system satisfying the relevant conditions cannot settle every statement it can express. There are statements it can neither prove nor refute."
+          },
+          {
+            "type": "paragraph",
+            "text": "The qualification matters as much as the conclusion. The results concern proof inside specified mathematical systems. They do not say that nothing is knowable, or that every collection of rules has the same limitation."
+          }
+        ]
+      },
+      {
+        "id": "details-2",
+        "title": "Arithmetic can speak about proofs",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Gödel’s construction encodes statements about formal proofs using arithmetic. This lets a sufficiently expressive system represent aspects of its own proof machinery. The resulting self-reference is a precise mathematical construction, not merely a sentence that sounds paradoxical."
+          },
+          {
+            "type": "paragraph",
+            "text": "The modern first incompleteness theorem applies to consistent, effectively axiomatized theories containing enough elementary arithmetic; Rosser strengthened Gödel’s original assumptions. The second theorem, under the usual conditions, prevents such a consistent theory from proving its own formalized consistency."
+          },
+          {
+            "type": "paragraph",
+            "text": "In both cases, “prove” remains relative to the system. Reasoning about a system from outside it is a different activity from deriving a statement by that system’s own rules. Keeping those levels apart makes the result easier to state without exaggeration."
+          }
+        ]
+      },
+      {
+        "id": "details-3",
+        "title": "Adding a page to the rulebook",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Adding an axiom may settle a statement that a particular formal system cannot resolve. If the enlarged system still meets the relevant conditions, incompleteness applies again. Settling one case differs from obtaining completeness."
+          },
+          {
+            "type": "paragraph",
+            "text": "Unprovability is always relative to a system. Broad claims about minds or all human knowledge require additional arguments; they do not follow from borrowing the theorem’s name."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Keep the theorem’s technical conditions visible.",
+              "Ask: unprovable in which system?",
+              "Distinguish formal proof from philosophical analogy."
+            ]
+          }
+        ]
+      }
+    ],
+    "mental": [
+      {
+        "id": "mental-1",
+        "title": "A rulebook with an inside and an outside",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Imagine a machine checking proofs against fixed axioms and rules. Now ask mathematical questions about that machine itself. Gödel encoded that kind of question with arithmetic, making the relationship between a rulebook and its own proofs precise."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Specify axioms and mechanical proof rules.",
+              "Encode statements about proofs as numbers.",
+              "Construct a statement the system cannot settle."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mental-2",
+        "title": "Keep the boundary around the claim",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The lesson is not that every truth is beyond reach. It is that proof belongs to a particular formal setting, and certain strong settings have demonstrable limits. Ask which conditions hold before carrying the result to a new context."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep in mind: the theorem does not imply that nothing is knowable or that every system is incomplete."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Which formal system is under discussion?",
+              "Does it satisfy the theorem’s conditions?",
+              "Are we reasoning inside that system or about it?"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "Gödel · Original paper (English translation)",
+      "url": "https://www.uhu.es/francisco.moreno/gii_mac/docs/Godel_paper_1931.pdf"
+    },
+    {
+      "label": "Stanford Encyclopedia · The precise conditions",
+      "url": "https://plato.stanford.edu/entries/goedel-incompleteness/"
+    }
+  ]
+}

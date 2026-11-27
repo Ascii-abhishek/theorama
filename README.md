@@ -1,70 +1,43 @@
 # Theorama
 
-A local, interactive **design prototype** for a quiet, retro field guide to big ideas. No server database, build step, framework, or package installation is needed.
+Theorama is a field guide to big ideas. The catalog, subject pages, and full articles are generated as HTML. The animated book, search, appearance controls, and local notes load in the browser.
 
-Run `npm run dev`, then open [the local preview](http://127.0.0.1:5173). Run `npm run check` to check JavaScript syntax, article JSON, and chapter structure.
+## Preview and verify
 
-## Try the design
+- Use Node.js 20 or newer. `npm run dev` builds the site and serves it at [127.0.0.1:5173](http://127.0.0.1:5173). Run `npm run build` again after content or code changes.
+- Run `npm run check` for source and content validation, and `npm test` for static output, invalid content, and catalog scaling checks.
+- Run `npm run test:browser` with Playwright installed. Set `PLAYWRIGHT_MODULE` if it is installed outside this project and `TEST_BROWSER` to select Chromium, Firefox, or WebKit. The GitHub workflow runs all three.
+- Open [the pagination checks](http://127.0.0.1:5173/tests/pagination.html) and [the notes checks](http://127.0.0.1:5173/tests/notes.html) directly in the development preview.
 
-- The full-width header contains the wordmark, slogan, and appearance, notes, and a three-dot menu for feedback and author information.
-- Click the search icon to expand a field within the subject row. Search titles, descriptions, authors, subjects, and tags. Press `/` to open search and Escape to collapse it.
-- Select a subject or use **Surprise me**. Surprise respects the current search, subject, and read filter.
-- Open a card to read a centered book with an illustrated opening, detailed explanations, and mental models at the end. Page count is calculated from the text size and available page space. Desktop shows two pages; narrow screens show one at a time.
-- Changing text size or rotating/resizing the screen repaginates the content and updates the counters while keeping the current passage in view. Diagrams and media reserve their space and move intact to the following page when needed.
-- The compact book controls cycle **Paper / After hours / Rosewater**, adjust reading text from **15–24px**, and cycle the background through **blur / dark focus / clear**. These choices affect only the reader, are retained across books for the current page session, and do not modify site preferences.
-- Turn pages with the corner arrows, Left/Right keys, or a horizontal mouse drag from a page edge. A short drag eases back; drag past the center to complete the turn. Touch swiping is supported. Pages do not scroll internally; overflow continues onto following pages.
-- Reach the final content page to mark an idea read automatically. The icon at the top right of every card lets you mark or unmark an idea manually; hover it to see the current status.
-- **Hide read** excludes completed ideas, including the featured card. Read state and this preference persist in this browser, and read changes sync between tabs on the same origin.
-- Appearance opens in a right-side pane. The three-dot menu opens feedback by default, with tabs for feedback and author information; switching tabs preserves the feedback draft. Every drawer has the same header and separator; the feedback/author tabs sit directly in that header. Appearance contains mood tiles, Clean / Bookish / Handwritten fonts, and a live reading preview. Mood and font preferences persist locally. Book text size stays in the reader controls; system reduced-motion settings are respected.
-- Press Escape or click the backdrop to close a book or utility pane. Articles have shareable `#idea/…` URLs.
+## Read and browse
 
-Feedback drafts are browser-local. There is no live message delivery or payment integration in this design preview. The developer bio is sample copy to review before launch.
+- Use the catalog, subject links, and numbered pages with any connection. Search and **Hide read** use a compact catalog index when requested. **Surprise me** respects the active filters.
+- The animated book is the initial default. Choose **Book** or **Article** under **The style** in Appearance. Style changes apply when the panel closes and keep the reading passage. Reading style, lettering, and text size are changed only in Appearance, available from the reader’s theme icon. The Clean, Bookish, and Cursive names use their actual fonts; the animated style tiles preview the selected font and 15–24 px text size. The settings interface keeps the system font. Cursive uses the self-hosted Caveat font.
+- Both views share reading controls. On desktop, a red Close button leads the rail. On mobile, use the OS Back gesture or button to leave; drag the floating chevron to move its compact control palette. It starts above the book or midway down the article’s right edge and stays below the title bar. Keyboard users can move it with Alt and the arrow keys. The controls overlay the content without narrowing the article. The desktop book keeps a bounded page proportion with space around it.
+- Clicking outside the book or pressing Escape leaves it open. Use Close or browser Back to leave; selecting Article in Appearance deliberately changes the reading style.
+- **Read aloud** uses the browser’s speech service and prefers an enhanced or natural voice when available. Pause, resume, and stop work across both reading views. Available voices and their quality depend on your device. The button appears only when the browser supports speech synthesis.
+- A slow book startup shows a spinner and switches to the complete text after three seconds. The book keeps the cover and its credit together, remembers the reading passage in this browser tab, and puts references on a dedicated final page.
+- The homepage uses the device's calendar date to shuffle tiles and their palettes. Its compact **A little discovery** card gives the idea’s key takeaway, reading time, and a **Read this idea** link that follows your chosen style. It walks through every idea once before repeating. Adding or removing ideas recalculates the cycle. The static catalog stays available when daily data cannot load.
+- Illustrated animations play automatically while visible, except with reduced motion or data saving enabled. The circular play/pause button follows the reading theme. Pause holds the current frame; Play restarts raster motion. Hidden pages stop animating, and a failed animation leaves its poster readable.
+- Use the Notes drawer on any page. In the book, select a passage to add it to the same note. Notes follow the current reading theme by default. A preset or custom color is remembered across visits. Notes and their appearance are stored in IndexedDB in the current browser profile. The note supports simple Markdown, plain-text paste, a 20,000-character limit, and a Markdown backup from its information menu.
+- Notes save as you type. A storage failure or conflict shows recovery controls. Clearing site data can remove notes. Read marks and site appearance also stay in this browser.
 
-## Personal notes
+## Build for production
 
-The notes icon beside Appearance opens a single shared note in the right drawer. The same icon sits at the top left of the book; opening notes keeps the article, page, theme, and reading size intact. Select book text to reveal an **Add selected text to notes** button after 200 ms. Quotes append with the idea’s title. Touch users can long-press to select text; quick swipes still turn pages.
-
-The drawer is one continuous sticky-note surface with a simple “Notes” header. Choose white, soft yellow, soft red, sage, blue, or dark gray paper. The font button cycles through Sans, Serif, and Mono; a dropdown offers 15/17/20/24px text. Colors switch from swatches to a dropdown when the panel is narrow. Simple Markdown formats as typed: `# ` through `### ` for headings, `- ` or `1. ` for lists, `> ` for quotes, and paired markers for **bold**, *italics*, and inline code. Paste inserts plain text; HTML, images, and remote resources are never rendered. Notes are limited to 20,000 characters including Markdown markers.
-
-Content and note appearance are saved only in IndexedDB for this site, browser profile, and device. Nothing is uploaded or synced to other devices. Saving waits 400 ms after typing, with a maximum two-second interval during continuous typing, and flushes when the panel closes, the editor loses focus, or the document becomes hidden. The save status inside the info popover updates only after a transaction commits; abrupt browser termination can still interrupt pending saves. Storage failures keep the draft in memory and offer Retry and **Download .md**. Transactions compare revisions to prevent stale tabs from silently overwriting each other. A conflicting draft remains available to download before explicitly replacing it with the saved note.
-
-A fixed footer shows the character count on the left and an info button on the right. Hover, keyboard focus, or tap reveals Markdown help, save status, retention details, and the Markdown backup download. Storage failures still show a visible recovery message. Clearing site data, ending a private browsing session, or browser storage eviction can remove notes. **Download .md** provides a portable backup; storage persistence is not promised. The same rules apply on mobile browsers.
-
-With the local server running, open [the notes tests](http://127.0.0.1:5173/tests/notes.html) for Markdown round trips, safe rendering, value bounds, IndexedDB persistence, and stale-tab protection. Tests use a separate IndexedDB database. Notes code lives in `src/js/notes.js`, `src/js/notes-markdown.js`, and `src/js/notes-store.js`, with styles in `src/styles/notes.css`.
-
-## Project structure
-
-```text
-theorama/
-├── index.html                 # Static entry page
-├── src/
-│   ├── js/                    # App, book reader, and SVG illustrations
-│   ├── styles/                # Page and book styling
-│   └── vendor/page-flip/       # Bundled page-fold engine and MIT license
-├── data/                      # Article summaries and book chapters
-├── assets/fonts/              # Bundled fonts and open font licenses
-├── scripts/check.mjs          # Source, content, and asset checks
-├── tests/                     # Dependency-free browser notes and pagination tests
-├── CONTRIBUTING.md            # Local setup and contribution guidance
-└── package.json               # Commands; no package dependencies
+```sh
+SITE_URL=https://theorama.example/ npm run build:production
 ```
 
-Node.js 20+ is required for checks; Python 3 serves the local preview. A static host can serve the repository root directly, including under a subpath. No build or `npm install` step is needed. See [CONTRIBUTING.md](CONTRIBUTING.md) to add articles or change the UI.
+- Set `SITE_URL` to the real public HTTPS address. Include the public subdirectory in that address when deploying under one. Local builds without `SITE_URL` discourage indexing.
+- Publish only `dist/` on a static host. Serve directory index files, forward HTTP to HTTPS, and return `404.html` with status 404 for unknown routes. The output includes `sitemap.xml`, `robots.txt`, and canonical article URLs.
+- Apply the generated `_headers` rules or translate them to the host’s configuration. Versioned assets use immutable caching. The release manifest bypasses caches so an open page can offer **Load update**. Enable gzip or Brotli on the host.
+- Enable atomic deployments and retain the last good deployment. On GitHub, setting the repository variable `SITE_URL` enables a production artifact on verified main builds. The hosting service can run the same production command from the approved main branch.
+- After deployment, check the public homepage, a direct article link, a missing URL, cache headers, and `sitemap.xml`. Verify the domain and submit the sitemap in Search Console.
+- Before enabling ads, reserve layout space and confirm publisher and consent requirements. Keep notes isolated from third-party scripts that run with access to same-origin storage.
 
-## Where the content lives
+## Source files
 
-`data/ideas.json` contains 12 sample article summaries, subject tags, types, author/year metadata, colors, and verified source links. `data/chapters.json` contains the longer book content, keyed by article ID. Chapters contain `details` and `mental` section arrays. Sections are semantic content, not fixed pages: the reader measures and splits them into as many justified pages as needed, including single-word continuations. Each section has a title and either paragraphs/optional bullets and a diagram, or an ordered `blocks` array for interleaved text and media. See [CONTRIBUTING.md](CONTRIBUTING.md) for the media format.
-
-`src/js/book.js` and `src/styles/book.css` own the book reader, accessible navigation, and pointer input. `src/js/pagination.js` measures live typography, splits text without dropping words, keeps art together, and preserves the source passage during reflow. The soft-page geometry is provided by a locally bundled [StPageFlip 2.0.7](https://nodlik.github.io/StPageFlip/) engine in `src/vendor/page-flip/`, with its MIT license and documented lifecycle fixes. `src/js/illustrations.js` contains original, editable SVG artwork. Fonts and their open licenses are bundled in `assets/fonts`. The handwritten option uses [Kalam by Indian Type Foundry](https://github.com/google/fonts/tree/main/ofl/kalam), bundled locally with its SIL Open Font License.
-
-The source distinguishes mathematical theorems, scientific theories, observations, and heuristics. Read times are sample estimates. The butterfly diagram is conceptual, not a scientific simulation.
-
-For the eventual site, one Markdown file per idea with frontmatter would make contributions and review easier as the collection grows. The prototype uses JSON to keep design iteration simple; a static build can later generate the same interface from Markdown without a database.
-
-To add a sample article, copy an entry in `data/ideas.json`, give it a unique ID, add the corresponding chapter in `data/chapters.json`, and optionally add its SVG to `src/js/illustrations.js`. Unrecognized illustration IDs use a fallback drawing. Read state is stored separately in local storage, so article files stay static and contribution-friendly.
-
-This is a visual/interaction sample to refine before production development, not a finished encyclopedia.
-
-## Pagination tests
-
-With `npm run dev` running, open [the browser test page](http://127.0.0.1:5173/tests/pagination.html). It checks text conservation, large-text reflow, single-word last pages, long Unicode words, oversized animated art, reading anchors, and mental-model ordering using real browser layout. No test package installation is required.
+- `content/ideas/<slug>/` contains each idea’s `idea.json` and its optional `media/` directory. See [CONTRIBUTING.md](CONTRIBUTING.md) for the format and the agent review workflow.
+- `scripts/build.mjs` generates pages, the searchable catalog, per-idea reader data, and a versioned public release. Development and production use the same content validator.
+- `src/js/` contains the catalog, article controls, overlay manager, notifications, reader, and local notes. `page-turner.js` adapts the vendored StPageFlip engine.
+- `src/styles/` contains the base site styles and shared themes, with separate book and notes styles. `assets/fonts/` contains WOFF2 fonts and their open licenses.

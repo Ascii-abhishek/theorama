@@ -1,0 +1,127 @@
+{
+  "id": "relativity",
+  "title": "Relativity",
+  "description": "Space and time depend on motion and gravity in measurable ways.",
+  "category": "Physics",
+  "kind": "Theory",
+  "tags": [
+    "Physics",
+    "Space",
+    "Time"
+  ],
+  "attribution": "Albert Einstein",
+  "year": "1905 / 1915",
+  "color": "lavender",
+  "takeaway": "Time is part of the physical world, shaped by motion and gravity.",
+  "illustration": "relativity",
+  "sections": {
+    "details": [
+      {
+        "id": "details-1",
+        "title": "A world without one universal clock",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "It feels natural to imagine a single clock for the whole universe, with everyone disagreeing only about how well they have measured its time. Relativity replaces that picture with precise relationships between measurements made along different motions and in different gravitational settings."
+          },
+          {
+            "type": "paragraph",
+            "text": "Observers moving differently can disagree about elapsed time and distance while agreeing on the laws of physics. Gravity also affects clock comparisons. These are physical effects, not tricks of perception or a claim that every opinion is equally true."
+          },
+          {
+            "type": "paragraph",
+            "text": "At familiar speeds, the differences can be tiny. Their smallness in everyday experience helps explain why the idea feels surprising, while precise clock measurements make it possible to test the relationships quantitatively."
+          }
+        ]
+      },
+      {
+        "id": "details-2",
+        "title": "Motion, gravity, and geometry",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Special relativity describes spacetime without gravitational curvature and includes velocity-dependent time dilation. General relativity describes gravity through spacetime geometry. They address related but distinct settings, so a good explanation states which situation is being considered."
+          },
+          {
+            "type": "paragraph",
+            "text": "A comparison between clocks depends on their paths and the specified frames of reference. It is not enough to say that time changed without saying which clocks are compared and how their journeys differ. The relationships connect physical measurements, rather than abandoning the idea of measurement."
+          },
+          {
+            "type": "paragraph",
+            "text": "The commonly drawn curved grid is a schematic aid for thinking about geometry. It is not a literal fabric that must sit inside another room. Like any diagram, it highlights part of the explanation while leaving out important dimensions and details."
+          }
+        ]
+      },
+      {
+        "id": "details-3",
+        "title": "Two clocks, two journeys",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Imagine synchronizing two excellent clocks, sending them on different journeys, then reuniting them. Their readings can differ because their motion and gravitational environments differed. The prediction concerns those specified paths."
+          },
+          {
+            "type": "paragraph",
+            "text": "Optical atomic clocks have measured relativistic differences across small changes in speed or height. These comparisons test physical relationships, rather than implying that every claim is equally true."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Specify the clocks, paths, and frames.",
+              "Distinguish motion from gravitational effects.",
+              "A spacetime illustration is a model, not a literal fabric."
+            ]
+          }
+        ]
+      }
+    ],
+    "mental": [
+      {
+        "id": "mental-1",
+        "title": "Two clocks take different journeys",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Begin with synchronized clocks. Imagine each following a different physical journey, then compare them when they reunite. The difference in their readings belongs to those journeys. You do not need to imagine a hidden universal clock behind both."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Start with synchronized clocks.",
+              "Give them different physical journeys.",
+              "Compare elapsed time when they reunite."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mental-2",
+        "title": "Make the comparison explicit",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "When you hear that time slows down, ask: which time, compared with which clock, along which path? A precise comparison is the bridge from a memorable phrase to a testable physical statement."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep in mind: relativity does not mean every claim is equally true. It gives precise relationships between measurements."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Name the observers or clocks.",
+              "Describe their motion and gravitational setting.",
+              "Ask what measurement would test the prediction."
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "NIST · Relativity and Optical Clocks",
+      "url": "https://www.nist.gov/publications/relativity-and-optical-clocks"
+    }
+  ]
+}

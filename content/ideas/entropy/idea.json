@@ -1,0 +1,136 @@
+{
+  "id": "entropy",
+  "title": "Entropy",
+  "description": "Why energy spreads out, and why some processes have a direction.",
+  "category": "Physics",
+  "kind": "Principle",
+  "tags": [
+    "Physics",
+    "Thermodynamics",
+    "Energy"
+  ],
+  "attribution": "Rudolf Clausius",
+  "year": "1865",
+  "color": "lavender",
+  "takeaway": "Look at the whole system, including its surroundings.",
+  "illustration": "entropy",
+  "sections": {
+    "details": [
+      {
+        "id": "details-1",
+        "title": "Why some changes have a direction",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A hot mug cools in a room. Waiting does not usually make the room give its dispersed warmth back to the mug in exactly the reverse sequence. Entropy helps describe this direction in physical processes, alongside the separate principle that energy is conserved."
+          },
+          {
+            "type": "paragraph",
+            "text": "For an isolated system, total entropy does not decrease. The word total matters. A particular region can become more organized or undergo an entropy decrease while exchanges with its surroundings account for the overall balance."
+          },
+          {
+            "type": "paragraph",
+            "text": "That is why a local patch of order does not contradict the second law. To understand the process, first decide where the boundary lies and whether energy or matter can cross it. The system and its surroundings belong in the same explanation."
+          }
+        ]
+      },
+      {
+        "id": "details-2",
+        "title": "A precise quantity, a rough metaphor",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Entropy is often introduced as disorder or messiness. Those images can be suggestive, but thermodynamic entropy is a precise quantity, measured in joules per kelvin. For reversible heat transfer, its change satisfies dS = δQrev/T, where temperature uses an absolute scale."
+          },
+          {
+            "type": "paragraph",
+            "text": "A statistical picture asks how many microscopic arrangements correspond to the large-scale state we describe. A drop of ink spreading through water illustrates why a dispersed state can have vastly more compatible arrangements than a concentrated one. The image supports an intuition; it does not replace the physical definitions."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep energy and entropy separate in the explanation. Energy conservation tells us about the amount accounted for. Entropy helps constrain the direction and possibilities of the process."
+          }
+        ]
+      },
+      {
+        "id": "details-3",
+        "title": "Widen the frame",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A refrigerator can cool its interior while exchanging energy and entropy with its environment. Looking only inside leaves out part of the process and cannot establish the change in total entropy."
+          },
+          {
+            "type": "paragraph",
+            "text": "The same boundary question matters for living organisms. Local organization can be compatible with the second law when exchanges with the surroundings are included."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Specify the system and its boundary.",
+              "Distinguish local change from total change.",
+              "Visual tidiness is not a thermodynamic measurement."
+            ]
+          }
+        ]
+      }
+    ],
+    "mental": [
+      {
+        "id": "mental-1",
+        "title": "A drop of ink in water",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Picture one concentrated drop and then a faint color spread throughout a glass. There are many more microscopic ways to arrange the dispersed ink than to gather it in one tiny region. This gives a statistical intuition for the direction of spreading."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Begin with a concentrated state.",
+              "Let microscopic interactions redistribute it.",
+              "Compare how many arrangements fit each state."
+            ]
+          },
+          {
+            "type": "animation",
+            "src": "media/spreading-ink.webp",
+            "poster": "media/spreading-ink.png",
+            "width": 560,
+            "height": 300,
+            "alt": "Dots representing ink start bunched on the left and disperse through a rectangular container.",
+            "caption": "The dots illustrate ink spreading through water. The motion is schematic and leaves out the molecular details."
+          }
+        ]
+      },
+      {
+        "id": "mental-2",
+        "title": "Always ask: what is outside?",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A useful entropy explanation includes the whole relevant exchange. Draw an imaginary boundary, then identify what crosses it. If one region becomes more organized, ask what happened elsewhere before deciding whether the total entropy increased or decreased."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep in mind: messiness is a rough metaphor. Thermodynamic entropy is a precise physical quantity."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Is the system isolated or open?",
+              "Where does energy cross the boundary?",
+              "Have the surroundings been included in the account?"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "NASA Glenn · Second Law and Entropy",
+      "url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/second-law-entropy/"
+    }
+  ]
+}

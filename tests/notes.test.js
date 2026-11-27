@@ -17,9 +17,9 @@ const tests = [
     assert(serializeNote(fixture) === source, "Unsafe-looking plain text lost");
   }],
   ["Invalid preferences and oversized records are bounded", () => {
-    assert(normalizeNote(null).markdown === "" && normalizeNote("bad").color === "white", "Malformed record failed to recover");
+    assert(normalizeNote(null).markdown === "" && normalizeNote("bad").color === "theme", "Malformed record failed to recover");
     const result = normalizeNote({ markdown: "x".repeat(NOTE_LIMIT + 1), color: "unknown", font: "unknown", size: 100, revision: -1 });
-    assert(result.markdown.length === NOTE_LIMIT && result.color === "white" && result.font === "sans" && result.size === 17 && result.revision === 0, "Bad saved values accepted");
+    assert(result.markdown.length === NOTE_LIMIT && result.color === "theme" && result.font === "sans" && result.size === 17 && result.revision === 0, "Bad saved values accepted");
   }],
   ["Typing bold does not prematurely turn the first closing star into italics", () => {
     fixture.hidden = false; fixture.contentEditable = "true";

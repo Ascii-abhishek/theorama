@@ -1,0 +1,93 @@
+<main id="main" tabindex="-1" class="site-main">
+      <section class="discovery" aria-label="Find an idea">
+        <h1 class="sr-only">%%HEADING%%</h1>
+        <div class="toolbar-browse">
+          <div class="search-box" id="search-box" hidden>
+            <button
+              class="search-toggle"
+              id="search-toggle"
+              aria-label="Search ideas"
+              aria-expanded="false"
+              aria-controls="search"
+            >
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="10.7" cy="10.7" r="6.7" />
+                <path d="m16 16 4.5 4.5" />
+              </svg>
+            </button>
+            <label class="sr-only" for="search"
+              >Search ideas, subjects, or authors</label
+            >
+            <input
+              id="search"
+              type="search"
+              placeholder="Find a little curiosity…"
+              autocomplete="off"
+              hidden
+            />
+          </div>
+          <div
+            class="subject-filters"
+            aria-label="Filter by subject"
+            id="filters"
+          >%%FILTERS%%</div>
+        </div>
+        <div class="toolbar-actions" hidden>
+          <button
+            class="hide-read-button"
+            id="hide-read"
+            aria-pressed="false"
+            title="Hide ideas you've already read"
+          >
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8" />
+              <path d="m8.5 12 2.5 2.5 4.5-5" /></svg
+            ><span>Hide read</span>
+          </button>
+          <button class="surprise-button" id="surprise" title="Surprise me">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect
+                x="4"
+                y="4"
+                width="16"
+                height="16"
+                rx="3"
+                transform="rotate(-10 12 12)"
+              />
+              <circle cx="8.5" cy="8.5" r=".8" />
+              <circle cx="15.5" cy="15.5" r=".8" />
+              <circle cx="12" cy="12" r=".8" /></svg
+            ><span>Surprise me</span>
+          </button>
+        </div>
+      </section>
+
+      <section
+        class="featured-section"
+        aria-label="A little discovery"
+        id="featured" %%FEATURE_STATE%%
+      >%%FEATURE%%</section>
+
+      <section
+        class="collection"
+        id="collection"
+        aria-labelledby="collection-title"
+      >
+        <div class="collection-heading">
+          <h2 id="collection-title" tabindex="-1">%%COLLECTION_TITLE%%</h2>
+          <p id="result-count" aria-live="polite">%%COUNT%%</p>
+        </div>
+        <div class="ideas-grid" id="ideas-grid" aria-label="Ideas">%%CARDS%%</div>
+        <div class="loading-skeleton catalog-skeleton" id="catalog-loading" hidden aria-hidden="true"><span></span><span></span><span></span></div>
+        <p class="feature-status" id="catalog-status" role="status" hidden></p>
+        <nav class="catalog-pagination" id="catalog-pagination" aria-label="Catalog pages" %%PAGINATION_STATE%%>%%PAGINATION%%</nav>
+        <div class="empty-state" id="empty-state" hidden>
+          <span aria-hidden="true">✳</span>
+          <h3>No ideas in this corner. Yet.</h3>
+          <p>Try another thought, or start with a clean slate.</p>
+          <button class="primary-button" id="reset-search">
+            Clear filters
+          </button>
+        </div>
+      </section>
+    </main>

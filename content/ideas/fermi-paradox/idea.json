@@ -1,0 +1,127 @@
+{
+  "id": "fermi-paradox",
+  "title": "The Fermi Paradox",
+  "description": "A vast universe. So many possibilities. Where is everybody?",
+  "category": "Space",
+  "kind": "Paradox",
+  "tags": [
+    "Space",
+    "Life",
+    "Uncertainty"
+  ],
+  "attribution": "Associated with Enrico Fermi",
+  "year": "1950",
+  "color": "blue",
+  "takeaway": "A puzzling absence can reveal what we have assumed.",
+  "illustration": "fermi-paradox",
+  "sections": {
+    "details": [
+      {
+        "id": "details-1",
+        "title": "An enormous question in a quiet sky",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The galaxy contains immense numbers of stars and has existed for billions of years. Under some assumptions about the emergence and expansion of technological civilizations, we might expect signs of activity beyond Earth. Yet we have no confirmed evidence of such civilizations."
+          },
+          {
+            "type": "paragraph",
+            "text": "The Fermi Paradox names the tension between those expectations and our observations. The question is associated with a 1950 conversation involving Enrico Fermi; later arguments developed the modern discussion about settlement and detectability."
+          },
+          {
+            "type": "paragraph",
+            "text": "It is not a proof that life must be common, or that it must be absent. Its force depends on assumptions about several different steps: life, technology, expansion, and our ability to recognize what we are looking for."
+          }
+        ]
+      },
+      {
+        "id": "details-2",
+        "title": "Turn the silence into separate questions",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A useful first distinction separates life from detectable technology. A place could contain life without producing a signal our searches could identify. A technological civilization could exist without being observable by a particular method at a particular time."
+          },
+          {
+            "type": "paragraph",
+            "text": "Next, inspect the expectation. How common are the relevant beginnings? How long might detectable activity last? Is expansion assumed, and if so, why? Each uncertainty belongs in the chain that turns a vast galaxy into an expectation of evidence."
+          },
+          {
+            "type": "paragraph",
+            "text": "Finally, inspect the observation. Searches cover limited signals, locations, and times. “We have not found it” is more precise when the searched region and detection method are specified. The silence then becomes a description of the evidence, rather than a statement about everything that could exist."
+          }
+        ]
+      },
+      {
+        "id": "details-3",
+        "title": "A neighborhood with unfamiliar windows",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Imagine a distant city with no familiar lights. Its homes might be empty, your timing unhelpful, or its signals unrecognizable. The same observation can fit several explanations."
+          },
+          {
+            "type": "paragraph",
+            "text": "Rare life, short-lived technology, limited expansion, and incomplete searches are proposed explanations for cosmic silence. They remain hypotheses, not an established solution or proof that nothing is there."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Distinguish life from detectable technology.",
+              "Specify what a search could detect.",
+              "Keep possible explanations separate from confirmed findings."
+            ]
+          }
+        ]
+      }
+    ],
+    "mental": [
+      {
+        "id": "mental-1",
+        "title": "An enormous, quiet neighborhood",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Imagine countless homes with no familiar lights in their windows. Before calling the city empty, ask when you looked and what kind of light you could recognize. The analogy does not answer the cosmic question; it exposes the assumptions behind an expectation."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "State what you expect to observe.",
+              "Inspect what has actually been searched.",
+              "Revisit assumptions behind the expectation."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mental-2",
+        "title": "Ask what the silence can tell you",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "An absence becomes informative in relation to a search. If an instrument would only notice a particular kind of signal, the result speaks most directly about that signal. Keep the conclusion connected to the method instead of enlarging it into certainty about the universe."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep in mind: no confirmed detection is not proof that extraterrestrial life is absent."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "What would count as a detection?",
+              "Which places, times, and signals are covered?",
+              "Which assumptions carry the most uncertainty?"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "SETI Institute · The Fermi Paradox",
+      "url": "https://www.seti.org/research/seti-101/fermi-paradox"
+    }
+  ]
+}

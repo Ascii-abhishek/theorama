@@ -1,0 +1,136 @@
+{
+  "id": "natural-selection",
+  "title": "Natural Selection",
+  "description": "Inherited differences can shape which traits spread over generations.",
+  "category": "Biology",
+  "kind": "Theory",
+  "tags": [
+    "Biology",
+    "Evolution",
+    "Adaptation"
+  ],
+  "attribution": "Charles Darwin and Alfred Russel Wallace",
+  "year": "1858 / 1859",
+  "color": "sage",
+  "takeaway": "Adaptation emerges through differences in reproduction over time.",
+  "illustration": "natural-selection",
+  "sections": {
+    "details": [
+      {
+        "id": "details-1",
+        "title": "Variation across generations",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Individuals in a population differ. Some of those differences have a heritable component, and some affect how many offspring individuals leave. When these conditions come together, the frequency of traits can change across generations. This is the central idea of natural selection."
+          },
+          {
+            "type": "paragraph",
+            "text": "The environment gives the relationship its context. A trait that helps in one setting may be costly in another. Selection does not work toward a fixed ideal organism, and it does not need a plan for the future."
+          },
+          {
+            "type": "paragraph",
+            "text": "Darwin and Wallace independently developed the idea, which was jointly presented in 1858. It became a central mechanism within evolutionary theory, explaining how adaptation can emerge through differences in reproduction over time."
+          }
+        ]
+      },
+      {
+        "id": "details-2",
+        "title": "A mechanism without foresight",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Natural selection connects three questions: what variation exists, which differences can be inherited, and how those differences relate to reproductive outcomes. If a difference has no heritable component, its importance to an individual does not by itself make it spread through selection across generations."
+          },
+          {
+            "type": "paragraph",
+            "text": "Fitness in this context concerns reproductive success in a particular environment. It is not a universal ranking of strength, elegance, or worth. The context can change, and a trait can bring tradeoffs rather than a perfect solution."
+          },
+          {
+            "type": "paragraph",
+            "text": "Selection is also not the only cause of evolutionary change. Mutation, genetic drift, and gene flow matter too. An explanation that notices a population change must still ask which mechanisms produced it, rather than assuming every difference is an adaptation."
+          }
+        ]
+      },
+      {
+        "id": "details-3",
+        "title": "Beaks and a changing menu",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Imagine birds with inherited differences in beak shape encountering harder seeds. Birds whose existing beaks help them eat may leave more offspring, shifting the population’s traits across generations."
+          },
+          {
+            "type": "paragraph",
+            "text": "This starts with variation already present, not birds growing needed beaks on demand. A real explanation needs evidence linking heritable differences, environmental conditions, and reproductive outcomes."
+          },
+          {
+            "type": "animation",
+            "src": "media/beak-generations.webp",
+            "poster": "media/beak-generations.png",
+            "width": 560,
+            "height": 300,
+            "alt": "Six successive population snapshots show an increasing share of broad-beaked individuals.",
+            "caption": "In this illustrative population, broad beaks become more common over generations after a change in available food. Each frame represents a population, with new individuals in later generations."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Track populations across generations.",
+              "Connect inherited differences to reproductive outcomes.",
+              "Keep other evolutionary mechanisms in view."
+            ]
+          }
+        ]
+      }
+    ],
+    "mental": [
+      {
+        "id": "mental-1",
+        "title": "Beaks meet a changing menu",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Picture birds with slightly different inherited beaks meeting a changed food supply. Some existing differences may now matter more to reproduction. Follow the next generation, then the next, rather than imagining one bird designing a better beak for itself."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Notice inherited variation.",
+              "Connect traits to reproductive outcomes.",
+              "Track their frequency across generations."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mental-2",
+        "title": "Change without a destination",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The model is most useful when it keeps time and context visible. What is inherited? What counts as reproductive success in this environment? Which mechanisms could also be changing the population? These questions are more informative than calling a trait simply better."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep in mind: individuals do not evolve a needed trait on demand. Populations change across generations."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Variation comes before the selective outcome.",
+              "A useful trait is useful in a context.",
+              "Adaptation need not produce perfection."
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "Darwin Online · On the Origin of Species",
+      "url": "https://darwin-online.org.uk/content/contentblock?basepage=1&hitpage=439&itemID=F401&viewtype=text"
+    }
+  ]
+}

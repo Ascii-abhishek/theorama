@@ -27,3 +27,7 @@ Thumbs.db
 *~
 __pycache__/
 *.pyc
+
+# Static build staging and lock
+.theorama-build-*/
+dist.lock

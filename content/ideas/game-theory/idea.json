@@ -1,0 +1,127 @@
+{
+  "id": "game-theory",
+  "title": "Game Theory",
+  "description": "Your best move depends on what everyone else decides to do.",
+  "category": "Computer science",
+  "kind": "Theory",
+  "tags": [
+    "Computer science",
+    "Strategy",
+    "Economics"
+  ],
+  "attribution": "von Neumann, Morgenstern, Nash and others",
+  "year": "1944 / 1950",
+  "color": "blue",
+  "takeaway": "Ask what each participant wants and how they can respond.",
+  "illustration": "game-theory",
+  "sections": {
+    "details": [
+      {
+        "id": "details-1",
+        "title": "A decision among decisions",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Some choices cannot be understood in isolation. A café choosing a price, for example, may care about the price chosen by another café. Each decision changes the setting in which the other decision makes sense. Game theory gives a mathematical language for these interactions."
+          },
+          {
+            "type": "paragraph",
+            "text": "A model identifies players, available actions, and outcomes those players value. It can describe competition, cooperation, or a mixture of both. The word game does not require a board or a winner who takes everything."
+          },
+          {
+            "type": "paragraph",
+            "text": "The value of the model depends on its assumptions. It should represent the incentives and responses that matter for the question. Leaving out something a participant values can change what looks like a sensible choice."
+          }
+        ]
+      },
+      {
+        "id": "details-2",
+        "title": "When no one gains by changing alone",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A Nash equilibrium is a collection of strategies in which no player can improve their own payoff by changing alone while the others keep their strategies fixed. It describes a particular kind of stability in the model, rather than a promise of a desirable result."
+          },
+          {
+            "type": "paragraph",
+            "text": "Nash established equilibrium existence for finite games when mixed strategies are allowed. A mixed strategy randomizes over available actions. Allowing this possibility changes the mathematical question from finding a fixed action for every player to finding strategies that may include probabilities."
+          },
+          {
+            "type": "paragraph",
+            "text": "An equilibrium need not be fair, efficient, unique, or easy to reach. The definition asks about an individual departure from the current strategies, not whether a coordinated change could make everyone better off."
+          }
+        ]
+      },
+      {
+        "id": "details-3",
+        "title": "The cafés, revisited",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Imagine two cafés choosing prices. List their choices and valued outcomes, then ask how each would respond while the other’s choice stays fixed. A tempting move may look different once responses matter."
+          },
+          {
+            "type": "paragraph",
+            "text": "This organizes a question rather than predicting actual cafés. People can lack information, act inconsistently, or value relationships a small payoff table leaves out."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Name the players and their choices.",
+              "State what each participant actually values.",
+              "Individual stability need not mean collective benefit."
+            ]
+          }
+        ]
+      }
+    ],
+    "mental": [
+      {
+        "id": "mental-1",
+        "title": "Two cafés choose their prices",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Each café’s result depends on its own choice and its rival’s choice. Before asking for the best move, build a picture of the interaction. A move is strategic because someone else can respond, not simply because it sounds clever."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "Identify the players and choices.",
+              "Describe the outcomes each values.",
+              "Consider their best responses to one another."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mental-2",
+        "title": "Look beyond your own move",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A small strategic model can reveal an overlooked response. It can also hide something important behind a convenient assumption. Before carrying its conclusion into the world, inspect what it leaves out and how the outcome might change if that assumption changed."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keep in mind: real people may lack information or value things the model omits."
+          },
+          {
+            "type": "bullets",
+            "items": [
+              "What would the other player do next?",
+              "What does each participant actually care about?",
+              "Could a coordinated change differ from a change made alone?"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "Nash · Non-Cooperative Games (1951)",
+      "url": "https://irving.vassar.edu/faculty/gj/FTU/io/literature/Nash51.pdf"
+    }
+  ]
+}
